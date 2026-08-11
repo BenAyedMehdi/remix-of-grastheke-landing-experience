@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as ApothekenkooperationRouteImport } from './routes/apothekenkooperation'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as KontaktRouteImport } from './routes/kontakt'
+import { Route as KontoRouteImport } from './routes/konto'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as NewsRouteImport } from './routes/news'
 import { Route as StandorteRouteImport } from './routes/standorte'
@@ -52,6 +53,11 @@ const AuthRoute = AuthRouteImport.update({
 const KontaktRoute = KontaktRouteImport.update({
   id: '/kontakt',
   path: '/kontakt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KontoRoute = KontoRouteImport.update({
+  id: '/konto',
+  path: '/konto',
   getParentRoute: () => rootRouteImport,
 } as any)
 const McpRoute = McpRouteImport.update({
@@ -141,6 +147,7 @@ export interface FileRoutesByFullPath {
   '/apothekenkooperation': typeof ApothekenkooperationRoute
   '/auth': typeof AuthRoute
   '/kontakt': typeof KontaktRoute
+  '/konto': typeof KontoRoute
   '/mcp': typeof McpRoute
   '/news': typeof NewsRoute
   '/standorte': typeof StandorteRoute
@@ -162,6 +169,7 @@ export interface FileRoutesByTo {
   '/apothekenkooperation': typeof ApothekenkooperationRoute
   '/auth': typeof AuthRoute
   '/kontakt': typeof KontaktRoute
+  '/konto': typeof KontoRoute
   '/mcp': typeof McpRoute
   '/news': typeof NewsRoute
   '/standorte': typeof StandorteRoute
@@ -185,6 +193,7 @@ export interface FileRoutesById {
   '/apothekenkooperation': typeof ApothekenkooperationRoute
   '/auth': typeof AuthRoute
   '/kontakt': typeof KontaktRoute
+  '/konto': typeof KontoRoute
   '/mcp': typeof McpRoute
   '/news': typeof NewsRoute
   '/standorte': typeof StandorteRoute
@@ -208,6 +217,7 @@ export interface FileRouteTypes {
     | '/apothekenkooperation'
     | '/auth'
     | '/kontakt'
+    | '/konto'
     | '/mcp'
     | '/news'
     | '/standorte'
@@ -229,6 +239,7 @@ export interface FileRouteTypes {
     | '/apothekenkooperation'
     | '/auth'
     | '/kontakt'
+    | '/konto'
     | '/mcp'
     | '/news'
     | '/standorte'
@@ -251,6 +262,7 @@ export interface FileRouteTypes {
     | '/apothekenkooperation'
     | '/auth'
     | '/kontakt'
+    | '/konto'
     | '/mcp'
     | '/news'
     | '/standorte'
@@ -274,6 +286,7 @@ export interface RootRouteChildren {
   ApothekenkooperationRoute: typeof ApothekenkooperationRoute
   AuthRoute: typeof AuthRoute
   KontaktRoute: typeof KontaktRoute
+  KontoRoute: typeof KontoRoute
   McpRoute: typeof McpRoute
   NewsRoute: typeof NewsRoute
   StandorteRoute: typeof StandorteRoute
@@ -322,6 +335,13 @@ declare module '@tanstack/react-router' {
       path: '/kontakt'
       fullPath: '/kontakt'
       preLoaderRoute: typeof KontaktRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/konto': {
+      id: '/konto'
+      path: '/konto'
+      fullPath: '/konto'
+      preLoaderRoute: typeof KontoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mcp': {
@@ -455,6 +475,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApothekenkooperationRoute: ApothekenkooperationRoute,
   AuthRoute: AuthRoute,
   KontaktRoute: KontaktRoute,
+  KontoRoute: KontoRoute,
   McpRoute: McpRoute,
   NewsRoute: NewsRoute,
   StandorteRoute: StandorteRoute,

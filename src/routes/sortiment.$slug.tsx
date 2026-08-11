@@ -4,6 +4,7 @@ import { products, SHOP_BASE_URL, type Product } from "@/lib/data";
 import { useActiveLocation } from "@/context/location-context";
 import { ProductReviews } from "@/components/site/ProductReviews";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
+import { openExternalUrl } from "@/lib/native";
 
 export const Route = createFileRoute("/sortiment/$slug")({
   loader: ({ params }) => {
@@ -37,7 +38,7 @@ function ProductPage() {
   const { activeLocation } = useActiveLocation();
 
   return (
-    <section className="mx-auto max-w-[1400px] px-5 pb-24 pt-28 md:px-10 md:pb-32 md:pt-36">
+    <section className="slide-in-page mx-auto max-w-[1400px] px-5 pb-24 pt-28 md:px-10 md:pb-32 md:pt-36">
       <Breadcrumbs
         items={[
           { label: "Startseite", to: "/" },
@@ -102,7 +103,11 @@ function ProductPage() {
             href={`${SHOP_BASE_URL}/${product.slug}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-10 inline-flex items-center gap-2 rounded-full bg-accent px-8 py-4 text-sm text-accent-foreground transition-opacity hover:opacity-90"
+            onClick={(event) => {
+              event.preventDefault();
+              void openExternalUrl(`${SHOP_BASE_URL}/${product.slug}`);
+            }}
+            className="mt-10 inline-flex min-h-[3rem] w-full items-center justify-center gap-2 rounded-full bg-accent px-8 py-4 text-sm text-accent-foreground transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background active:opacity-80 sm:w-auto"
           >
             Jetzt bestellen
             <ArrowUpRight className="size-4" strokeWidth={1.5} />

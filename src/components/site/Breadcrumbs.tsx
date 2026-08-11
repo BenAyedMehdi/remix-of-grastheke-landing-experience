@@ -4,7 +4,7 @@ import { ChevronRight, Home } from "lucide-react";
 export interface BreadcrumbItem {
   label: string;
   to?: string;
-  params?: Record<string, string>;
+  params?: Record<string, string> | undefined;
 }
 
 interface BreadcrumbsProps {

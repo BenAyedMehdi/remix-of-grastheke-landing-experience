@@ -230,38 +230,45 @@ function Index() {
       >
         <div className="dot-grid absolute inset-0 opacity-60" aria-hidden="true" />
         <div className="relative mx-auto max-w-[1400px] px-5 py-16 sm:py-20 md:px-10 md:py-28">
-          <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center md:gap-12">
-            <div className="w-full max-w-2xl min-w-0">
-              <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5 text-xs text-muted-foreground">
-                <Building2 className="size-3.5 shrink-0 text-accent" strokeWidth={1.5} />
+          <Link
+            to="/apothekenkooperation"
+            onClick={() =>
+              trackEvent("cooperation_cta_click", {
+                location: "homepage_after_gram",
+                label: "Kooperation entdecken",
+              })
+            }
+            className="group mx-auto flex max-w-2xl items-center gap-5 rounded-[2rem] border border-border bg-background p-5 shadow-soft transition-all duration-300 hover:shadow-[0_12px_40px_-20px_rgb(0,0,0,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-secondary sm:gap-6 sm:p-6 md:max-w-3xl md:rounded-[2.5rem] md:p-8"
+          >
+            <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-3xl border border-accent/10 bg-accent-soft sm:h-24 sm:w-24 sm:rounded-[1.75rem]">
+              <Building2
+                className="size-9 text-accent sm:size-10"
+                strokeWidth={1.5}
+                aria-hidden="true"
+              />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-[0.625rem] font-medium uppercase tracking-[0.2em] text-muted-foreground">
                 Für Apotheken
-              </div>
+              </p>
               <h2
                 id="cooperation-teaser-title"
-                className="mt-4 text-[1.75rem] font-medium leading-[1.15] tracking-tight text-foreground sm:mt-5 sm:text-3xl md:text-5xl"
+                className="mt-1 text-lg font-medium leading-tight tracking-tight text-foreground sm:text-xl md:text-2xl"
               >
                 Werde Teil der Apothekenkooperation
               </h2>
-              <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground sm:mt-4 md:text-base">
-                grastheke vereint lizenzierte Apotheken unter einem gemeinsamen
-                Qualitätsversprechen. Entdecke Vorteile wie Inspektionen, QM-System,
-                Einkaufsvorteile und digitale Services.
+              <p className="mt-1.5 max-w-md text-sm leading-relaxed text-muted-foreground">
+                Vernetzte Standorte, gemeinsames QM-System und digitale Services.
               </p>
+              <div className="mt-3 flex items-center gap-1 text-sm font-medium text-accent transition-all duration-300 group-hover:gap-2">
+                Kooperation entdecken
+                <ArrowRight
+                  className="size-4 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5"
+                  strokeWidth={1.5}
+                />
+              </div>
             </div>
-            <Link
-              to="/apothekenkooperation"
-              onClick={() =>
-                trackEvent("cooperation_cta_click", {
-                  location: "homepage_after_gram",
-                  label: "Kooperation entdecken",
-                })
-              }
-              className="inline-flex min-h-[3.25rem] w-full shrink-0 items-center justify-center gap-3 rounded-full bg-foreground px-8 py-4 text-center text-sm text-background transition-all hover:gap-5 hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:w-auto"
-            >
-              Kooperation entdecken
-              <ArrowRight className="size-4 shrink-0" strokeWidth={1.5} />
-            </Link>
-          </div>
+          </Link>
         </div>
       </section>
     </>

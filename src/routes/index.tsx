@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { FileText, ScanLine, MapPin } from "lucide-react";
+import { FileText, ScanLine, MapPin, ArrowRight } from "lucide-react";
 import { LocationPicker } from "@/components/site/LocationPicker";
 import { DropsSection } from "@/components/site/DropsSection";
 import { ProductGrid } from "@/components/site/ProductGrid";
@@ -164,8 +164,6 @@ function Index() {
             style={{
               backgroundImage: "radial-gradient(currentColor 1px, transparent 1px)",
               backgroundSize: "22px 22px",
-              color: "currentColor",
-              opacity: undefined,
             }}
           />
           <div className="relative">

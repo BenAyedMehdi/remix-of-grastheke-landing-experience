@@ -56,7 +56,8 @@ export function Header() {
               key={item.to}
               to={item.to}
               className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-              activeProps={{ className: "text-foreground" }}
+              activeProps={{ className: "text-foreground font-medium" }}
+              activeOptions={{ exact: true }}
             >
               {item.label}
             </Link>

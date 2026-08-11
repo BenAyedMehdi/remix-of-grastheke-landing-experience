@@ -152,6 +152,40 @@ function Index() {
           <ProductGrid />
         </div>
       </section>
+
+      <section className="border-t border-border bg-foreground text-background">
+        <Link
+          to="/the-gram"
+          className="group relative mx-auto flex max-w-[1400px] flex-col gap-6 overflow-hidden px-5 py-20 md:flex-row md:items-center md:justify-between md:px-10 md:py-28"
+        >
+          <div
+            className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+            aria-hidden="true"
+            style={{
+              backgroundImage: "radial-gradient(currentColor 1px, transparent 1px)",
+              backgroundSize: "22px 22px",
+              color: "currentColor",
+              opacity: undefined,
+            }}
+          />
+          <div className="relative">
+            <p className="font-mono text-xs uppercase tracking-[0.45em] opacity-40">
+              ◇ Zugang beschränkt
+            </p>
+            <h2 className="mt-6 text-3xl font-medium tracking-tight opacity-70 transition-opacity duration-500 group-hover:opacity-100 md:text-6xl">
+              The Gram
+            </h2>
+            <p className="mt-5 max-w-md text-sm leading-relaxed opacity-40 transition-opacity duration-500 group-hover:opacity-70">
+              Es gibt ein Sortiment, das hier nicht steht. Wer den Code hat, weiß bereits,
+              wofür.
+            </p>
+          </div>
+          <span className="relative inline-flex items-center gap-3 self-start rounded-full border border-background/25 px-6 py-3 text-sm opacity-50 transition-all duration-500 group-hover:gap-5 group-hover:opacity-100">
+            Code eingeben
+            <ArrowRight className="size-4" strokeWidth={1.5} />
+          </span>
+        </Link>
+      </section>
     </>
   );
 }

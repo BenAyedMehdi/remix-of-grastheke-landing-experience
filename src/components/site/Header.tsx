@@ -24,6 +24,8 @@ export function Header() {
   const { isScrolled } = useHeaderScroll();
   const location = useLocation();
   const activeRef = useRef<HTMLAnchorElement | null>(null);
+  const toggleRef = useRef<HTMLButtonElement | null>(null);
+  const panelRef = useRef<HTMLElement | null>(null);
 
   const activeIndex = nav.findIndex((item) => {
     const exact = location.pathname === item.to;
@@ -56,6 +58,36 @@ export function Header() {
     }, CLOSE_DURATION);
   };
 
+  // Escape schließt das Menü und gibt den Fokus an den Toggle-Button zurück
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        requestClose();
+        toggleRef.current?.focus();
+      }
+      if (event.key === "Tab" && panelRef.current) {
+        const focusables = [
+          toggleRef.current,
+          ...Array.from(panelRef.current.querySelectorAll<HTMLElement>("a[href]")),
+        ].filter(Boolean) as HTMLElement[];
+        if (focusables.length === 0) return;
+        const first = focusables[0]!;
+        const last = focusables[focusables.length - 1]!;
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, isClosing]);
+
   const toggleMenu = () => {
     if (open) {
       requestClose();
@@ -80,8 +112,8 @@ export function Header() {
           onClick={() => {
             if (visible) requestClose();
           }}
-          className="flex items-center"
-          aria-label="Grastheke Startseite"
+          className="flex items-center rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+          aria-label="Grastheke – zur Startseite"
         >
           <img
             src={logoAsset.url}
@@ -92,13 +124,16 @@ export function Header() {
           />
         </Link>
 
-        <nav className="hidden items-center gap-8 lg:flex">
+        <nav aria-label="Hauptnavigation" className="hidden items-center gap-8 lg:flex">
           {nav.map((item) => (
             <Link
               key={item.to}
               to={item.to}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-              activeProps={{ className: "text-foreground font-medium" }}
+              className="rounded-sm text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+              activeProps={{
+                className: "text-foreground font-medium",
+                "aria-current": "page",
+              }}
               activeOptions={{ exact: !item.matchSubpaths }}
             >
               {item.label}
@@ -109,20 +144,31 @@ export function Header() {
         <div className="flex items-center gap-2">
           <Link
             to="/standorte"
-            className="hidden items-center gap-2 rounded-full border border-border px-4 py-2 text-xs transition-colors hover:border-accent hover:text-accent sm:inline-flex"
+            className="hidden items-center gap-2 rounded-full border border-border px-4 py-2 text-xs transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:inline-flex"
+            aria-label={
+              activeLocation
+                ? `Aktiver Standort: ${activeLocation.city}. Standort ändern`
+                : "Standort wählen"
+            }
           >
-            <MapPin className="size-3.5" strokeWidth={1.5} />
+            <MapPin className="size-3.5" strokeWidth={1.5} aria-hidden="true" />
             {activeLocation ? activeLocation.city : "Standort wählen"}
           </Link>
           <button
             type="button"
+            ref={toggleRef}
             aria-label={visible ? "Menü schließen" : "Menü öffnen"}
             aria-expanded={visible}
             aria-controls="mobile-navigation"
+            aria-haspopup="menu"
             onClick={toggleMenu}
-            className="inline-flex size-9 items-center justify-center rounded-full border border-border transition-colors hover:bg-accent/10 lg:hidden"
+            className="inline-flex size-11 items-center justify-center rounded-full border border-border transition-colors hover:bg-accent/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background lg:hidden"
           >
-            {visible ? <X className="size-4" /> : <Menu className="size-4" />}
+            {visible ? (
+              <X className="size-4" aria-hidden="true" />
+            ) : (
+              <Menu className="size-4" aria-hidden="true" />
+            )}
           </button>
         </div>
       </div>
@@ -130,6 +176,8 @@ export function Header() {
       {visible && (
         <nav
           id="mobile-navigation"
+          ref={panelRef}
+          aria-label="Mobile Hauptnavigation"
           className={`overflow-hidden border-t border-border bg-background px-5 pb-6 pt-2 transition-all duration-[${CLOSE_DURATION}ms] ease-out lg:hidden ${
             isClosing ? "max-h-0 opacity-0" : "max-h-[calc(100dvh-4rem)] opacity-100"
           }`}
@@ -144,15 +192,26 @@ export function Header() {
                   ref={isActive ? activeRef : undefined}
                   to={item.to}
                   onClick={requestClose}
-                  className={`block border-b border-border py-3.5 text-lg tracking-tight transition-colors last:border-0 ${
+                  className={`block rounded-sm border-b border-border py-3.5 text-lg tracking-tight transition-colors last:border-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset ${
                     isActive
                       ? "font-medium text-foreground"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
-                  activeProps={{ className: "block border-b border-border py-3.5 text-lg tracking-tight text-foreground font-medium last:border-0" }}
+                  activeProps={{
+                    className:
+                      "block rounded-sm border-b border-border py-3.5 text-lg tracking-tight text-foreground font-medium last:border-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset",
+                    "aria-current": "page",
+                  }}
                   activeOptions={{ exact: !item.matchSubpaths }}
                 >
-                  {item.label}
+                  <span className="flex items-center justify-between">
+                    {item.label}
+                    {isActive && (
+                      <span className="ml-3 text-xs font-normal text-accent">
+                        Aktuelle Seite
+                      </span>
+                    )}
+                  </span>
                 </Link>
               );
             })}

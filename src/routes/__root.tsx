@@ -146,9 +146,15 @@ function RootComponent() {
         <HeaderScrollProvider>
           <AgeGate />
           <AuthRedirectHandler />
+          <a
+            href="#hauptinhalt"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-foreground focus:px-5 focus:py-2.5 focus:text-sm focus:text-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            Zum Hauptinhalt springen
+          </a>
           <Header />
           <ScrollSentinel />
-          <main className="min-h-screen">
+          <main id="hauptinhalt" tabIndex={-1} className="min-h-screen">
             {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
             <Outlet />
           </main>

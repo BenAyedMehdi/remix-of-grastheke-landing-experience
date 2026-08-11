@@ -66,7 +66,6 @@ function useAutoBreadcrumbs(): BreadcrumbItem[] {
 export function Breadcrumbs({ items, className = "" }: BreadcrumbsProps) {
   const autoItems = useAutoBreadcrumbs();
   const resolved = items ?? autoItems;
-  console.log("[Breadcrumbs] resolved:", resolved.length, JSON.stringify(resolved.map(i => i.label)));
 
   if (resolved.length <= 1) return null;
 

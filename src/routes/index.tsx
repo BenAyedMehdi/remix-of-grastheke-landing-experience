@@ -200,17 +200,17 @@ function Index() {
 
       <section className="relative overflow-hidden border-t border-border bg-secondary">
         <div className="dot-grid absolute inset-0 opacity-60" aria-hidden="true" />
-        <div className="relative mx-auto max-w-[1400px] px-5 py-20 md:px-10 md:py-28">
-          <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
-            <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5 text-xs text-muted-foreground">
-                <Building2 className="size-3.5 text-accent" strokeWidth={1.5} />
+        <div className="relative mx-auto max-w-[1400px] px-5 py-16 sm:py-20 md:px-10 md:py-28">
+          <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center md:gap-12">
+            <div className="w-full max-w-2xl min-w-0">
+              <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5 text-xs text-muted-foreground">
+                <Building2 className="size-3.5 shrink-0 text-accent" strokeWidth={1.5} />
                 Für Apotheken
               </div>
-              <h2 className="mt-5 text-3xl font-medium tracking-tight md:text-5xl">
+              <h2 className="mt-4 text-[1.75rem] font-medium leading-[1.15] tracking-tight sm:mt-5 sm:text-3xl md:text-5xl">
                 Werde Teil der Apothekenkooperation
               </h2>
-              <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
+              <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground sm:mt-4 md:text-base">
                 grastheke vereint lizenzierte Apotheken unter einem gemeinsamen
                 Qualitätsversprechen. Entdecke Vorteile wie Inspektionen, QM-System,
                 Einkaufsvorteile und digitale Services.
@@ -218,10 +218,10 @@ function Index() {
             </div>
             <Link
               to="/apothekenkooperation"
-              className="inline-flex w-full shrink-0 items-center justify-center gap-3 rounded-full bg-foreground px-8 py-4 text-sm text-background transition-all hover:gap-5 hover:opacity-85 sm:w-auto"
+              className="inline-flex min-h-[3.25rem] w-full shrink-0 items-center justify-center gap-3 rounded-full bg-foreground px-8 py-4 text-center text-sm text-background transition-all hover:gap-5 hover:opacity-85 sm:w-auto"
             >
               Kooperation entdecken
-              <ArrowRight className="size-4" strokeWidth={1.5} />
+              <ArrowRight className="size-4 shrink-0" strokeWidth={1.5} />
             </Link>
           </div>
         </div>

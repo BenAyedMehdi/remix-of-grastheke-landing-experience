@@ -21,6 +21,7 @@ import {
 } from "@/context/header-scroll-context";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthRedirectHandler } from "@/components/site/AuthRedirectHandler";
+import { BottomTabBar } from "@/components/app/BottomTabBar";
 
 function NotFoundComponent() {
   return (
@@ -86,7 +87,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      {
+        name: "viewport",
+        content: "width=device-width, initial-scale=1, viewport-fit=cover",
+      },
+      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "mobile-web-app-capable", content: "yes" },
       { title: "Grastheke — Medizinisches Cannabis aus Partnerapotheken" },
       {
         name: "description",
@@ -154,11 +160,17 @@ function RootComponent() {
           </a>
           <Header />
           <ScrollSentinel />
-          <main id="hauptinhalt" tabIndex={-1} className="min-h-screen">
+          <main
+            id="hauptinhalt"
+            tabIndex={-1}
+            className="min-h-screen safe-top lg:pt-0"
+          >
             {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
             <Outlet />
           </main>
           <Footer />
+          <div className="app-scroll-area lg:hidden" aria-hidden="true" />
+          <BottomTabBar />
           <Toaster />
         </HeaderScrollProvider>
       </LocationProvider>

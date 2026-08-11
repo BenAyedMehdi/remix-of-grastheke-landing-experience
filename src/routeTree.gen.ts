@@ -19,6 +19,7 @@ import { Route as UeberUnsRouteImport } from './routes/ueber-uns'
 import { Route as SortimentIndexRouteImport } from './routes/sortiment.index'
 import { Route as SortimentSlugRouteImport } from './routes/sortiment.$slug'
 import { Route as AuthenticatedChargenIndexRouteImport } from './routes/_authenticated/chargen.index'
+import { Route as AuthenticatedChargenBatchNumberRouteImport } from './routes/_authenticated/chargen.$batchNumber'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -70,6 +71,12 @@ const AuthenticatedChargenIndexRoute =
     path: '/chargen/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedChargenBatchNumberRoute =
+  AuthenticatedChargenBatchNumberRouteImport.update({
+    id: '/chargen/$batchNumber',
+    path: '/chargen/$batchNumber',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -80,6 +87,7 @@ export interface FileRoutesByFullPath {
   '/ueber-uns': typeof UeberUnsRoute
   '/sortiment/$slug': typeof SortimentSlugRoute
   '/sortiment/': typeof SortimentIndexRoute
+  '/chargen/$batchNumber': typeof AuthenticatedChargenBatchNumberRoute
   '/chargen/': typeof AuthenticatedChargenIndexRoute
 }
 export interface FileRoutesByTo {
@@ -91,6 +99,7 @@ export interface FileRoutesByTo {
   '/ueber-uns': typeof UeberUnsRoute
   '/sortiment/$slug': typeof SortimentSlugRoute
   '/sortiment': typeof SortimentIndexRoute
+  '/chargen/$batchNumber': typeof AuthenticatedChargenBatchNumberRoute
   '/chargen': typeof AuthenticatedChargenIndexRoute
 }
 export interface FileRoutesById {
@@ -104,6 +113,7 @@ export interface FileRoutesById {
   '/ueber-uns': typeof UeberUnsRoute
   '/sortiment/$slug': typeof SortimentSlugRoute
   '/sortiment/': typeof SortimentIndexRoute
+  '/_authenticated/chargen/$batchNumber': typeof AuthenticatedChargenBatchNumberRoute
   '/_authenticated/chargen/': typeof AuthenticatedChargenIndexRoute
 }
 export interface FileRouteTypes {
@@ -117,6 +127,7 @@ export interface FileRouteTypes {
     | '/ueber-uns'
     | '/sortiment/$slug'
     | '/sortiment/'
+    | '/chargen/$batchNumber'
     | '/chargen/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -128,6 +139,7 @@ export interface FileRouteTypes {
     | '/ueber-uns'
     | '/sortiment/$slug'
     | '/sortiment'
+    | '/chargen/$batchNumber'
     | '/chargen'
   id:
     | '__root__'
@@ -140,6 +152,7 @@ export interface FileRouteTypes {
     | '/ueber-uns'
     | '/sortiment/$slug'
     | '/sortiment/'
+    | '/_authenticated/chargen/$batchNumber'
     | '/_authenticated/chargen/'
   fileRoutesById: FileRoutesById
 }
@@ -227,14 +240,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedChargenIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/chargen/$batchNumber': {
+      id: '/_authenticated/chargen/$batchNumber'
+      path: '/chargen/$batchNumber'
+      fullPath: '/chargen/$batchNumber'
+      preLoaderRoute: typeof AuthenticatedChargenBatchNumberRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedChargenBatchNumberRoute: typeof AuthenticatedChargenBatchNumberRoute
   AuthenticatedChargenIndexRoute: typeof AuthenticatedChargenIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedChargenBatchNumberRoute: AuthenticatedChargenBatchNumberRoute,
   AuthenticatedChargenIndexRoute: AuthenticatedChargenIndexRoute,
 }
 

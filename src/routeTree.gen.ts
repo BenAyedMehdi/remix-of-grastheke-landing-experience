@@ -16,6 +16,7 @@ import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as NewsRouteImport } from './routes/news'
 import { Route as StandorteRouteImport } from './routes/standorte'
 import { Route as UeberUnsRouteImport } from './routes/ueber-uns'
+import { Route as AuthenticatedChargenVerwaltungRouteImport } from './routes/_authenticated/chargen-verwaltung'
 import { Route as SortimentIndexRouteImport } from './routes/sortiment.index'
 import { Route as SortimentSlugRouteImport } from './routes/sortiment.$slug'
 import { Route as AuthenticatedChargenIndexRouteImport } from './routes/_authenticated/chargen.index'
@@ -55,6 +56,12 @@ const UeberUnsRoute = UeberUnsRouteImport.update({
   path: '/ueber-uns',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedChargenVerwaltungRoute =
+  AuthenticatedChargenVerwaltungRouteImport.update({
+    id: '/chargen-verwaltung',
+    path: '/chargen-verwaltung',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const SortimentIndexRoute = SortimentIndexRouteImport.update({
   id: '/sortiment/',
   path: '/sortiment/',
@@ -85,6 +92,7 @@ export interface FileRoutesByFullPath {
   '/news': typeof NewsRoute
   '/standorte': typeof StandorteRoute
   '/ueber-uns': typeof UeberUnsRoute
+  '/chargen-verwaltung': typeof AuthenticatedChargenVerwaltungRoute
   '/sortiment/$slug': typeof SortimentSlugRoute
   '/sortiment/': typeof SortimentIndexRoute
   '/chargen/$batchNumber': typeof AuthenticatedChargenBatchNumberRoute
@@ -97,6 +105,7 @@ export interface FileRoutesByTo {
   '/news': typeof NewsRoute
   '/standorte': typeof StandorteRoute
   '/ueber-uns': typeof UeberUnsRoute
+  '/chargen-verwaltung': typeof AuthenticatedChargenVerwaltungRoute
   '/sortiment/$slug': typeof SortimentSlugRoute
   '/sortiment': typeof SortimentIndexRoute
   '/chargen/$batchNumber': typeof AuthenticatedChargenBatchNumberRoute
@@ -111,6 +120,7 @@ export interface FileRoutesById {
   '/news': typeof NewsRoute
   '/standorte': typeof StandorteRoute
   '/ueber-uns': typeof UeberUnsRoute
+  '/_authenticated/chargen-verwaltung': typeof AuthenticatedChargenVerwaltungRoute
   '/sortiment/$slug': typeof SortimentSlugRoute
   '/sortiment/': typeof SortimentIndexRoute
   '/_authenticated/chargen/$batchNumber': typeof AuthenticatedChargenBatchNumberRoute
@@ -125,6 +135,7 @@ export interface FileRouteTypes {
     | '/news'
     | '/standorte'
     | '/ueber-uns'
+    | '/chargen-verwaltung'
     | '/sortiment/$slug'
     | '/sortiment/'
     | '/chargen/$batchNumber'
@@ -137,6 +148,7 @@ export interface FileRouteTypes {
     | '/news'
     | '/standorte'
     | '/ueber-uns'
+    | '/chargen-verwaltung'
     | '/sortiment/$slug'
     | '/sortiment'
     | '/chargen/$batchNumber'
@@ -150,6 +162,7 @@ export interface FileRouteTypes {
     | '/news'
     | '/standorte'
     | '/ueber-uns'
+    | '/_authenticated/chargen-verwaltung'
     | '/sortiment/$slug'
     | '/sortiment/'
     | '/_authenticated/chargen/$batchNumber'
@@ -219,6 +232,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UeberUnsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/chargen-verwaltung': {
+      id: '/_authenticated/chargen-verwaltung'
+      path: '/chargen-verwaltung'
+      fullPath: '/chargen-verwaltung'
+      preLoaderRoute: typeof AuthenticatedChargenVerwaltungRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/sortiment/': {
       id: '/sortiment/'
       path: '/sortiment'
@@ -251,11 +271,13 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedChargenVerwaltungRoute: typeof AuthenticatedChargenVerwaltungRoute
   AuthenticatedChargenBatchNumberRoute: typeof AuthenticatedChargenBatchNumberRoute
   AuthenticatedChargenIndexRoute: typeof AuthenticatedChargenIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedChargenVerwaltungRoute: AuthenticatedChargenVerwaltungRoute,
   AuthenticatedChargenBatchNumberRoute: AuthenticatedChargenBatchNumberRoute,
   AuthenticatedChargenIndexRoute: AuthenticatedChargenIndexRoute,
 }

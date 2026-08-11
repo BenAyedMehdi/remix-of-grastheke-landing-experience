@@ -196,6 +196,11 @@
   background-size: 22px 22px;
 }
 
+@utility content-visibility-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 320px;
+}
+
 @keyframes fade-up {
   from {
     opacity: 0;

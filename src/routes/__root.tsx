@@ -15,6 +15,8 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { AgeGate } from "@/components/site/AgeGate";
 import { LocationProvider } from "@/context/location-context";
+import { Toaster } from "@/components/ui/sonner";
+import { AuthRedirectHandler } from "@/components/site/AuthRedirectHandler";
 
 function NotFoundComponent() {
   return (
@@ -138,12 +140,14 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <LocationProvider>
         <AgeGate />
+        <AuthRedirectHandler />
         <Header />
         <main className="min-h-screen">
           {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
           <Outlet />
         </main>
         <Footer />
+        <Toaster />
       </LocationProvider>
     </QueryClientProvider>
   );

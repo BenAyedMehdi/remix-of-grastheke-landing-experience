@@ -10,16 +10,30 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as NewsRouteImport } from './routes/news'
 import { Route as StandorteRouteImport } from './routes/standorte'
 import { Route as UeberUnsRouteImport } from './routes/ueber-uns'
+import { Route as AuthenticatedChargenVerwaltungRouteImport } from './routes/_authenticated/chargen-verwaltung'
 import { Route as SortimentIndexRouteImport } from './routes/sortiment.index'
 import { Route as SortimentSlugRouteImport } from './routes/sortiment.$slug'
+import { Route as AuthenticatedChargenIndexRouteImport } from './routes/_authenticated/chargen.index'
+import { Route as AuthenticatedChargenBatchNumberRouteImport } from './routes/_authenticated/chargen.$batchNumber'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KontaktRoute = KontaktRouteImport.update({
@@ -42,6 +56,12 @@ const UeberUnsRoute = UeberUnsRouteImport.update({
   path: '/ueber-uns',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedChargenVerwaltungRoute =
+  AuthenticatedChargenVerwaltungRouteImport.update({
+    id: '/chargen-verwaltung',
+    path: '/chargen-verwaltung',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const SortimentIndexRoute = SortimentIndexRouteImport.update({
   id: '/sortiment/',
   path: '/sortiment/',
@@ -52,67 +72,107 @@ const SortimentSlugRoute = SortimentSlugRouteImport.update({
   path: '/sortiment/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedChargenIndexRoute =
+  AuthenticatedChargenIndexRouteImport.update({
+    id: '/chargen/',
+    path: '/chargen/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedChargenBatchNumberRoute =
+  AuthenticatedChargenBatchNumberRouteImport.update({
+    id: '/chargen/$batchNumber',
+    path: '/chargen/$batchNumber',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/kontakt': typeof KontaktRoute
   '/news': typeof NewsRoute
   '/standorte': typeof StandorteRoute
   '/ueber-uns': typeof UeberUnsRoute
+  '/chargen-verwaltung': typeof AuthenticatedChargenVerwaltungRoute
   '/sortiment/$slug': typeof SortimentSlugRoute
   '/sortiment/': typeof SortimentIndexRoute
+  '/chargen/$batchNumber': typeof AuthenticatedChargenBatchNumberRoute
+  '/chargen/': typeof AuthenticatedChargenIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/kontakt': typeof KontaktRoute
   '/news': typeof NewsRoute
   '/standorte': typeof StandorteRoute
   '/ueber-uns': typeof UeberUnsRoute
+  '/chargen-verwaltung': typeof AuthenticatedChargenVerwaltungRoute
   '/sortiment/$slug': typeof SortimentSlugRoute
   '/sortiment': typeof SortimentIndexRoute
+  '/chargen/$batchNumber': typeof AuthenticatedChargenBatchNumberRoute
+  '/chargen': typeof AuthenticatedChargenIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/kontakt': typeof KontaktRoute
   '/news': typeof NewsRoute
   '/standorte': typeof StandorteRoute
   '/ueber-uns': typeof UeberUnsRoute
+  '/_authenticated/chargen-verwaltung': typeof AuthenticatedChargenVerwaltungRoute
   '/sortiment/$slug': typeof SortimentSlugRoute
   '/sortiment/': typeof SortimentIndexRoute
+  '/_authenticated/chargen/$batchNumber': typeof AuthenticatedChargenBatchNumberRoute
+  '/_authenticated/chargen/': typeof AuthenticatedChargenIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/kontakt'
     | '/news'
     | '/standorte'
     | '/ueber-uns'
+    | '/chargen-verwaltung'
     | '/sortiment/$slug'
     | '/sortiment/'
+    | '/chargen/$batchNumber'
+    | '/chargen/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/kontakt'
     | '/news'
     | '/standorte'
     | '/ueber-uns'
+    | '/chargen-verwaltung'
     | '/sortiment/$slug'
     | '/sortiment'
+    | '/chargen/$batchNumber'
+    | '/chargen'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
+    | '/auth'
     | '/kontakt'
     | '/news'
     | '/standorte'
     | '/ueber-uns'
+    | '/_authenticated/chargen-verwaltung'
     | '/sortiment/$slug'
     | '/sortiment/'
+    | '/_authenticated/chargen/$batchNumber'
+    | '/_authenticated/chargen/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   KontaktRoute: typeof KontaktRoute
   NewsRoute: typeof NewsRoute
   StandorteRoute: typeof StandorteRoute
@@ -128,6 +188,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/kontakt': {
@@ -158,6 +232,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UeberUnsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/chargen-verwaltung': {
+      id: '/_authenticated/chargen-verwaltung'
+      path: '/chargen-verwaltung'
+      fullPath: '/chargen-verwaltung'
+      preLoaderRoute: typeof AuthenticatedChargenVerwaltungRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/sortiment/': {
       id: '/sortiment/'
       path: '/sortiment'
@@ -172,11 +253,42 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SortimentSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/chargen/': {
+      id: '/_authenticated/chargen/'
+      path: '/chargen'
+      fullPath: '/chargen/'
+      preLoaderRoute: typeof AuthenticatedChargenIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/chargen/$batchNumber': {
+      id: '/_authenticated/chargen/$batchNumber'
+      path: '/chargen/$batchNumber'
+      fullPath: '/chargen/$batchNumber'
+      preLoaderRoute: typeof AuthenticatedChargenBatchNumberRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedChargenVerwaltungRoute: typeof AuthenticatedChargenVerwaltungRoute
+  AuthenticatedChargenBatchNumberRoute: typeof AuthenticatedChargenBatchNumberRoute
+  AuthenticatedChargenIndexRoute: typeof AuthenticatedChargenIndexRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedChargenVerwaltungRoute: AuthenticatedChargenVerwaltungRoute,
+  AuthenticatedChargenBatchNumberRoute: AuthenticatedChargenBatchNumberRoute,
+  AuthenticatedChargenIndexRoute: AuthenticatedChargenIndexRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
   KontaktRoute: KontaktRoute,
   NewsRoute: NewsRoute,
   StandorteRoute: StandorteRoute,
@@ -187,13 +299,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

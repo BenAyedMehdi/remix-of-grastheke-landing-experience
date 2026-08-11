@@ -56,7 +56,8 @@ export function Header() {
               key={item.to}
               to={item.to}
               className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-              activeProps={{ className: "text-foreground" }}
+              activeProps={{ className: "text-foreground font-medium" }}
+              activeOptions={{ exact: true }}
             >
               {item.label}
             </Link>
@@ -89,7 +90,9 @@ export function Header() {
               key={item.to}
               to={item.to}
               onClick={() => setOpen(false)}
-              className="block border-b border-border py-3.5 text-lg tracking-tight last:border-0"
+              className="block border-b border-border py-3.5 text-lg tracking-tight text-muted-foreground transition-colors last:border-0 hover:text-foreground"
+              activeProps={{ className: "block border-b border-border py-3.5 text-lg tracking-tight text-foreground font-medium last:border-0" }}
+              activeOptions={{ exact: true }}
             >
               {item.label}
             </Link>

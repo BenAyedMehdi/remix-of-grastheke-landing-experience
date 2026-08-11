@@ -38,6 +38,14 @@ export function Footer() {
           <div>
             <p className="text-eyebrow">Rechtliches</p>
             <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+              <li>
+                <Link
+                  to="/apothekenkooperation"
+                  className="transition-colors hover:text-foreground"
+                >
+                  Apothekenkooperation
+                </Link>
+              </li>
               <li>Impressum</li>
               <li>Datenschutz</li>
               <li>AGB</li>

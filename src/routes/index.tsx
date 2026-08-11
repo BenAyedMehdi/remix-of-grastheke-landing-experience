@@ -205,7 +205,10 @@ function Index() {
         </Link>
       </section>
 
-      <section className="relative overflow-hidden border-t border-border bg-secondary">
+      <section
+        className="relative overflow-hidden border-t border-border bg-secondary"
+        aria-labelledby="cooperation-teaser-title"
+      >
         <div className="dot-grid absolute inset-0 opacity-60" aria-hidden="true" />
         <div className="relative mx-auto max-w-[1400px] px-5 py-16 sm:py-20 md:px-10 md:py-28">
           <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center md:gap-12">
@@ -214,7 +217,10 @@ function Index() {
                 <Building2 className="size-3.5 shrink-0 text-accent" strokeWidth={1.5} />
                 Für Apotheken
               </div>
-              <h2 className="mt-4 text-[1.75rem] font-medium leading-[1.15] tracking-tight sm:mt-5 sm:text-3xl md:text-5xl">
+              <h2
+                id="cooperation-teaser-title"
+                className="mt-4 text-[1.75rem] font-medium leading-[1.15] tracking-tight text-foreground sm:mt-5 sm:text-3xl md:text-5xl"
+              >
                 Werde Teil der Apothekenkooperation
               </h2>
               <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground sm:mt-4 md:text-base">
@@ -231,7 +237,7 @@ function Index() {
                   label: "Kooperation entdecken",
                 })
               }
-              className="inline-flex min-h-[3.25rem] w-full shrink-0 items-center justify-center gap-3 rounded-full bg-foreground px-8 py-4 text-center text-sm text-background transition-all hover:gap-5 hover:opacity-85 sm:w-auto"
+              className="inline-flex min-h-[3.25rem] w-full shrink-0 items-center justify-center gap-3 rounded-full bg-foreground px-8 py-4 text-center text-sm text-background transition-all hover:gap-5 hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:w-auto"
             >
               Kooperation entdecken
               <ArrowRight className="size-4 shrink-0" strokeWidth={1.5} />

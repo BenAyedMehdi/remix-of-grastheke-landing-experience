@@ -4,7 +4,6 @@ import { LocationPicker } from "@/components/site/LocationPicker";
 import { DropsSection } from "@/components/site/DropsSection";
 import { ProductGrid } from "@/components/site/ProductGrid";
 import { GramMark } from "@/components/site/GramMark";
-import { CooperationSection } from "@/components/site/CooperationSection";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -198,8 +197,6 @@ function Index() {
           </span>
         </Link>
       </section>
-
-      <CooperationSection />
     </>
   );
 }

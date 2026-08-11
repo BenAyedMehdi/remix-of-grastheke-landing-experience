@@ -43,13 +43,13 @@ export function Header() {
   }, [open, activeIndex]);
 
   useEffect(() => {
+    const original = document.body.style.overflow;
     if (open) {
-      const original = document.body.style.overflow;
       document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = original;
-      };
     }
+    return () => {
+      document.body.style.overflow = original;
+    };
   }, [open]);
 
   const requestClose = () => {

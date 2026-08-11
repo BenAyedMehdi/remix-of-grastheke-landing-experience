@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { CooperationSection } from "@/components/site/CooperationSection";
 import { CooperationFAQ } from "@/components/site/CooperationFAQ";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import heroImage from "@/assets/kooperation-hero.jpg";
 
 export const Route = createFileRoute("/apothekenkooperation")({
@@ -47,6 +48,9 @@ export const Route = createFileRoute("/apothekenkooperation")({
 function CooperationPage() {
   return (
     <div className="pt-16 md:pt-20">
+      <div className="mx-auto max-w-[1400px] px-5 pt-6 md:px-10 md:pt-8">
+        <Breadcrumbs />
+      </div>
       <section className="relative overflow-hidden border-b border-border">
         <div className="dot-grid absolute inset-0 opacity-60" aria-hidden="true" />
         <div

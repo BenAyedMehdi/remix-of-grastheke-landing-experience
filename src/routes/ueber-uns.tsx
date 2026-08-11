@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import pharmacy from "@/assets/pharmacy.jpg";
 
 export const Route = createFileRoute("/ueber-uns")({
@@ -39,6 +40,7 @@ function AboutPage() {
   return (
     <>
       <section className="mx-auto max-w-[1400px] px-5 pb-16 pt-32 md:px-10 md:pb-24 md:pt-44">
+        <Breadcrumbs />
         <p className="text-eyebrow">Über uns</p>
         <h1 className="mt-5 max-w-4xl text-4xl font-medium leading-[1.05] tracking-tight md:text-6xl">
           Medizinisches Cannabis, so unaufgeregt wie jede andere Therapie.

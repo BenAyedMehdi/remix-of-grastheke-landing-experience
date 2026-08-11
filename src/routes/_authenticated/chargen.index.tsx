@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Search, ShieldCheck } from "lucide-react";
 import { searchBatches, formatDate, formatNumber } from "@/lib/batches";
 import { useRoles } from "@/hooks/use-session";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 
 export const Route = createFileRoute("/_authenticated/chargen/")({
   head: () => ({
@@ -35,6 +36,7 @@ function BatchSearchPage() {
 
   return (
     <section className="mx-auto max-w-[1400px] px-5 pb-24 pt-32 md:px-10 md:pt-44">
+      <Breadcrumbs />
       <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
         <div>
           <p className="text-eyebrow">Chargenrückverfolgung</p>

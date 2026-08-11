@@ -6,13 +6,13 @@ import { useHeaderScroll } from "@/context/header-scroll-context";
 import logoAsset from "@/assets/grastheke-logo.png.asset.json";
 
 const nav = [
-  { to: "/standorte", label: "Standorte" },
-  { to: "/sortiment", label: "Sortiment" },
-  { to: "/chargen", label: "Chargen" },
-  { to: "/news", label: "News & Drops" },
-  { to: "/apothekenkooperation", label: "Kooperation" },
-  { to: "/ueber-uns", label: "Über uns" },
-  { to: "/kontakt", label: "Kontakt" },
+  { to: "/standorte", label: "Standorte", matchSubpaths: false },
+  { to: "/sortiment", label: "Sortiment", matchSubpaths: true },
+  { to: "/chargen", label: "Chargen", matchSubpaths: true },
+  { to: "/news", label: "News & Drops", matchSubpaths: true },
+  { to: "/apothekenkooperation", label: "Kooperation", matchSubpaths: true },
+  { to: "/ueber-uns", label: "Über uns", matchSubpaths: false },
+  { to: "/kontakt", label: "Kontakt", matchSubpaths: false },
 ] as const;
 
 const CLOSE_DURATION = 220;

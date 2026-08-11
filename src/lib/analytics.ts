@@ -8,6 +8,7 @@
 
 export type AnalyticsEventName =
   | "cooperation_cta_click"
+  | "location_cta_click"
   | "location_select"
   | "product_view"
   | "gram_enter_click"
@@ -18,6 +19,10 @@ export type AnalyticsEventName =
 
 export interface AnalyticsEventProperties {
   cooperation_cta_click: {
+    location: string;
+    label: string;
+  };
+  location_cta_click: {
     location: string;
     label: string;
   };

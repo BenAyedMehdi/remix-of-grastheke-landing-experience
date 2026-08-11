@@ -34,7 +34,9 @@ export function HeaderScrollProvider({ children }: { children: ReactNode }) {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsScrolled(!entry.isIntersecting);
+        if (entry) {
+          setIsScrolled(!entry.isIntersecting);
+        }
       },
       {
         root: null,

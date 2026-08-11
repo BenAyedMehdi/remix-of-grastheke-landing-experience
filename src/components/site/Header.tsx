@@ -24,10 +24,9 @@ export function Header() {
   const location = useLocation();
   const activeRef = useRef<HTMLAnchorElement | null>(null);
 
-  const activeIndex = nav.findIndex((item) =>
-    item.to === "/"
-      ? location.pathname === "/"
-      : location.pathname === item.to || location.pathname.startsWith(`${item.to}/`)
+  const activeIndex = nav.findIndex(
+    (item) =>
+      location.pathname === item.to || location.pathname.startsWith(`${item.to}/`)
   );
 
   useEffect(() => {

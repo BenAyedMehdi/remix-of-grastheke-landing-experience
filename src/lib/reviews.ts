@@ -9,6 +9,14 @@ export type ReviewWithVotes = Review & {
   myVote: -1 | 1 | 0;
 };
 
+export type ProductBatch = {
+  id: string;
+  batch_number: string;
+  packaged_date: string | null;
+};
+
+export type ProductReview = ReviewWithVotes & { batchNumber: string };
+
 export const ratingAspects = [
   ["rating_aroma", "Aroma"],
   ["rating_taste", "Geschmack"],
@@ -92,6 +100,60 @@ export async function submitReview(input: ReviewInput) {
 }
 
 export async function castVote(reviewId: string, userId: string, value: -1 | 1 | 0) {
+  return castVoteImpl(reviewId, userId, value);
+}
+
+/** Alle Chargen einer Blüte – Grundlage für den Chargenfilter. */
+export async function getProductBatches(productSlug: string) {
+  const { data, error } = await supabase
+    .from("batches")
+    .select("id, batch_number, packaged_date")
+    .eq("product_slug", productSlug)
+    .eq("status", "published")
+    .order("packaged_date", { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as ProductBatch[];
+}
+
+/** Bewertungen aller Chargen einer Blüte, inkl. Chargennummer zum Filtern. */
+export async function getProductReviews(productSlug: string, userId: string | null) {
+  const batches = await getProductBatches(productSlug);
+  if (batches.length === 0) return { batches, reviews: [] as ProductReview[] };
+
+  const byId = new Map(batches.map((b) => [b.id, b.batch_number]));
+  const { data, error } = await supabase
+    .from("batch_reviews")
+    .select("*")
+    .in("batch_id", [...byId.keys()])
+    .order("created_at", { ascending: false });
+  if (error) throw error;
+
+  const rows = data ?? [];
+  const { data: votes } = rows.length
+    ? await supabase
+        .from("review_votes")
+        .select("review_id, user_id, value")
+        .in(
+          "review_id",
+          rows.map((r) => r.id),
+        )
+    : { data: [] as { review_id: string; user_id: string; value: number }[] };
+
+  const reviews: ProductReview[] = rows.map((review) => {
+    const own = votes?.find((v) => v.review_id === review.id && v.user_id === userId);
+    return {
+      ...review,
+      batchNumber: byId.get(review.batch_id) ?? "—",
+      up: votes?.filter((v) => v.review_id === review.id && v.value === 1).length ?? 0,
+      down: votes?.filter((v) => v.review_id === review.id && v.value === -1).length ?? 0,
+      myVote: (own?.value ?? 0) as -1 | 1 | 0,
+    };
+  });
+
+  return { batches, reviews };
+}
+
+async function castVoteImpl(reviewId: string, userId: string, value: -1 | 1 | 0) {
   if (value === 0) {
     const { error } = await supabase
       .from("review_votes")

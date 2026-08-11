@@ -227,6 +227,7 @@ export type Database = {
           origin: string | null
           packaged_date: string | null
           product_name: string
+          product_slug: string | null
           status: string
           thc_percent: number | null
           total_terpenes_percent: number | null
@@ -254,6 +255,7 @@ export type Database = {
           origin?: string | null
           packaged_date?: string | null
           product_name: string
+          product_slug?: string | null
           status?: string
           thc_percent?: number | null
           total_terpenes_percent?: number | null
@@ -281,6 +283,7 @@ export type Database = {
           origin?: string | null
           packaged_date?: string | null
           product_name?: string
+          product_slug?: string | null
           status?: string
           thc_percent?: number | null
           total_terpenes_percent?: number | null

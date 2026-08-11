@@ -1,40 +1,53 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ThumbsDown, ThumbsUp, ShieldCheck, Clock } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { StarRating } from "@/components/site/StarRating";
 import { useSession } from "@/hooks/use-session";
 import {
   castVote,
-  getBatchReviews,
+  getProductReviews,
   ratingAspects,
   submitReview,
-  type ReviewWithVotes,
+  type ProductBatch,
+  type ProductReview,
 } from "@/lib/reviews";
 
 const inputClass =
   "mt-1.5 w-full rounded-md border border-border bg-background px-3 py-2 text-sm outline-none focus:border-foreground";
 
-export function BatchReviews({
-  batchId,
-  batchNumber,
+export function ProductReviews({
+  productSlug,
   productName,
 }: {
-  batchId: string;
-  batchNumber: string;
+  productSlug: string;
   productName: string;
 }) {
   const { user } = useSession();
   const queryClient = useQueryClient();
   const [formOpen, setFormOpen] = useState(false);
+  const [batchFilter, setBatchFilter] = useState("all");
 
-  const { data: reviews = [], isLoading } = useQuery({
-    queryKey: ["batch-reviews", batchId, user?.id ?? null],
-    queryFn: () => getBatchReviews(batchId, user?.id ?? null),
+  const { data, isLoading } = useQuery({
+    queryKey: ["product-reviews", productSlug, user?.id ?? null],
+    queryFn: () => getProductReviews(productSlug, user?.id ?? null),
+    enabled: Boolean(user),
+    retry: false,
   });
 
+  const batches: ProductBatch[] = data?.batches ?? [];
+  const allReviews = useMemo(() => data?.reviews ?? [], [data]);
+  const reviews = useMemo(
+    () =>
+      batchFilter === "all"
+        ? allReviews
+        : allReviews.filter((r) => r.batchNumber === batchFilter),
+    [allReviews, batchFilter],
+  );
+
   const invalidate = () =>
-    queryClient.invalidateQueries({ queryKey: ["batch-reviews", batchId] });
+    queryClient.invalidateQueries({ queryKey: ["product-reviews", productSlug] });
 
   const vote = useMutation({
     mutationFn: ({ reviewId, value }: { reviewId: string; value: -1 | 1 | 0 }) =>
@@ -55,7 +68,7 @@ export function BatchReviews({
       <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
         <div>
           <h2 className="text-2xl font-medium tracking-tight">
-            Bewertungen zu dieser Charge
+            Patientenbewertungen zu {productName}
           </h2>
           <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
             Jede Charge von {productName} wird einzeln bewertet – Cannabis ist ein
@@ -72,9 +85,51 @@ export function BatchReviews({
           </div>
           <p className="mt-1 text-xs text-muted-foreground">
             {published.length} geprüfte Bewertung{published.length === 1 ? "" : "en"}
+            {batchFilter === "all" ? " (alle Chargen)" : ` zu Charge ${batchFilter}`}
           </p>
         </div>
       </div>
+
+      {!user && (
+        <div className="mt-8 border border-border p-6">
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            Bewertungen zu den einzelnen Chargen sind Patientinnen und Patienten mit
+            Login vorbehalten.
+          </p>
+          <Link
+            to="/auth"
+            search={{ redirect: `/sortiment/${productSlug}` }}
+            className="mt-4 inline-flex rounded-full bg-foreground px-6 py-3 text-sm text-background transition-opacity hover:opacity-85"
+          >
+            Anmelden
+          </Link>
+        </div>
+      )}
+
+      {user && batches.length > 0 && (
+        <div className="mt-8 flex flex-wrap items-center gap-3">
+          <span className="text-eyebrow">Nach Charge filtern</span>
+          <div className="flex flex-wrap gap-2">
+            <FilterChip
+              active={batchFilter === "all"}
+              label={`Alle Chargen (${allReviews.filter((r) => r.status === "approved").length})`}
+              onClick={() => setBatchFilter("all")}
+            />
+            {batches.map((batch) => (
+              <FilterChip
+                key={batch.id}
+                active={batchFilter === batch.batch_number}
+                label={`${batch.batch_number} (${
+                  allReviews.filter(
+                    (r) => r.batchNumber === batch.batch_number && r.status === "approved",
+                  ).length
+                })`}
+                onClick={() => setBatchFilter(batch.batch_number)}
+              />
+            ))}
+          </div>
+        </div>
+      )}
 
       {published.length > 0 && (
         <dl className="mt-8 grid gap-4 sm:grid-cols-3 lg:grid-cols-5">
@@ -100,20 +155,24 @@ export function BatchReviews({
         </dl>
       )}
 
-      {own ? (
+      {!user ? null : own ? (
         <OwnReviewNotice review={own} />
       ) : (
         <div className="mt-10">
           {formOpen ? (
             <ReviewForm
-              batchId={batchId}
-              batchNumber={batchNumber}
+              batches={batches}
+              initialBatchId={
+                batches.find((b) => b.batch_number === batchFilter)?.id ??
+                batches[0]?.id ??
+                ""
+              }
               onDone={() => {
                 setFormOpen(false);
                 void invalidate();
               }}
             />
-          ) : (
+          ) : batches.length > 0 ? (
             <button
               type="button"
               onClick={() => setFormOpen(true)}
@@ -121,7 +180,7 @@ export function BatchReviews({
             >
               Charge bewerten
             </button>
-          )}
+          ) : null}
         </div>
       )}
 
@@ -135,6 +194,9 @@ export function BatchReviews({
             <div className="flex flex-wrap items-center gap-3">
               <StarRating value={review.rating_overall} size="size-4" />
               <span className="text-sm">{review.title ?? "Bewertung"}</span>
+              <span className="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">
+                Charge {review.batchNumber}
+              </span>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-secondary px-3 py-1 text-xs text-muted-foreground">
                 <ShieldCheck className="size-3.5" strokeWidth={1.5} />
                 Bestellung verifiziert
@@ -194,23 +256,50 @@ export function BatchReviews({
         ))}
       </ul>
 
-      {!isLoading && published.length === 0 && (
+      {user && !isLoading && published.length === 0 && (
         <p className="mt-10 text-sm text-muted-foreground">
-          Für diese Charge liegen noch keine geprüften Bewertungen vor.
+          {batchFilter === "all"
+            ? "Für diese Blüte liegen noch keine geprüften Bewertungen vor."
+            : `Für Charge ${batchFilter} liegen noch keine geprüften Bewertungen vor.`}
         </p>
       )}
     </div>
   );
 }
 
-function OwnReviewNotice({ review }: { review: ReviewWithVotes }) {
+function FilterChip({
+  active,
+  label,
+  onClick,
+}: {
+  active: boolean;
+  label: string;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className={`rounded-full border px-4 py-2 text-xs transition-colors ${
+        active
+          ? "border-foreground bg-foreground text-background"
+          : "border-border text-muted-foreground hover:border-foreground"
+      }`}
+    >
+      {label}
+    </button>
+  );
+}
+
+function OwnReviewNotice({ review }: { review: ProductReview }) {
   if (review.status === "approved") return null;
   return (
     <div className="mt-10 border border-border p-5">
       <p className="flex items-center gap-2 text-sm">
         <Clock className="size-4" strokeWidth={1.5} />
         {review.status === "pending"
-          ? "Ihre Bewertung wird derzeit anhand Ihrer Bestellnummer geprüft."
+          ? `Ihre Bewertung zu Charge ${review.batchNumber} wird derzeit anhand Ihrer Bestellnummer geprüft.`
           : "Ihre Bewertung wurde nicht freigegeben."}
       </p>
       {review.rejection_reason && (
@@ -223,15 +312,16 @@ function OwnReviewNotice({ review }: { review: ReviewWithVotes }) {
 }
 
 function ReviewForm({
-  batchId,
-  batchNumber,
+  batches,
+  initialBatchId,
   onDone,
 }: {
-  batchId: string;
-  batchNumber: string;
+  batches: ProductBatch[];
+  initialBatchId: string;
   onDone: () => void;
 }) {
   const { user } = useSession();
+  const [batchId, setBatchId] = useState(initialBatchId);
   const [overall, setOverall] = useState(0);
   const [aspects, setAspects] = useState<Record<string, number>>({});
   const [displayName, setDisplayName] = useState("");
@@ -267,7 +357,11 @@ function ReviewForm({
       ),
   });
 
-  const valid = overall > 0 && body.trim().length >= 20 && orderNumber.trim().length >= 3;
+  const valid =
+    Boolean(batchId) &&
+    overall > 0 &&
+    body.trim().length >= 20 &&
+    orderNumber.trim().length >= 3;
 
   return (
     <form
@@ -277,7 +371,26 @@ function ReviewForm({
       }}
       className="border border-border p-6"
     >
-      <p className="text-eyebrow">Bewertung zu Charge {batchNumber}</p>
+      <p className="text-eyebrow">Neue Bewertung</p>
+
+      <label className="mt-4 block text-eyebrow sm:max-w-sm">
+        Welche Charge bewerten Sie? *
+        <select
+          required
+          className={inputClass}
+          value={batchId}
+          onChange={(e) => setBatchId(e.target.value)}
+        >
+          {batches.map((batch) => (
+            <option key={batch.id} value={batch.id}>
+              {batch.batch_number}
+              {batch.packaged_date
+                ? ` · abgefüllt ${new Date(batch.packaged_date).toLocaleDateString("de-DE")}`
+                : ""}
+            </option>
+          ))}
+        </select>
+      </label>
 
       <div className="mt-5">
         <p className="text-sm">Gesamtbewertung *</p>

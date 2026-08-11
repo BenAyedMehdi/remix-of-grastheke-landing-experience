@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { products, SHOP_BASE_URL, type Product } from "@/lib/data";
 import { useActiveLocation } from "@/context/location-context";
+import { ProductReviews } from "@/components/site/ProductReviews";
 
 export const Route = createFileRoute("/sortiment/$slug")({
   loader: ({ params }) => {
@@ -111,6 +112,8 @@ function ProductPage() {
           </p>
         </div>
       </div>
+
+      <ProductReviews productSlug={product.slug} productName={product.name} />
     </section>
   );
 }

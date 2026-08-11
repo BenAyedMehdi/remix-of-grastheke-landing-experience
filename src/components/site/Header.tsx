@@ -25,10 +25,11 @@ export function Header() {
   const location = useLocation();
   const activeRef = useRef<HTMLAnchorElement | null>(null);
 
-  const activeIndex = nav.findIndex(
-    (item) =>
-      location.pathname === item.to || location.pathname.startsWith(`${item.to}/`)
-  );
+  const activeIndex = nav.findIndex((item) => {
+    const exact = location.pathname === item.to;
+    const subpath = item.matchSubpaths && location.pathname.startsWith(`${item.to}/`);
+    return exact || subpath;
+  });
 
   useEffect(() => {
     if (open && activeRef.current) {

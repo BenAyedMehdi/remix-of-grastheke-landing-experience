@@ -174,8 +174,9 @@ function Index() {
       </section>
 
       <section
-        className="border-t border-border bg-foreground text-background"
+        className="content-visibility-auto border-t border-border bg-foreground text-background"
         aria-labelledby="gram-teaser-title"
+        style={{ containIntrinsicSize: "0 320px" }}
       >
         <Link
           to="/the-gram"

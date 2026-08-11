@@ -16,10 +16,12 @@ import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as NewsRouteImport } from './routes/news'
 import { Route as StandorteRouteImport } from './routes/standorte'
+import { Route as TheGramRouteImport } from './routes/the-gram'
 import { Route as UeberUnsRouteImport } from './routes/ueber-uns'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as AuthenticatedChargenVerwaltungRouteImport } from './routes/_authenticated/chargen-verwaltung'
+import { Route as AuthenticatedGramRouteImport } from './routes/_authenticated/gram'
 import { Route as SortimentIndexRouteImport } from './routes/sortiment.index'
 import { Route as SortimentSlugRouteImport } from './routes/sortiment.$slug'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
@@ -61,6 +63,11 @@ const StandorteRoute = StandorteRouteImport.update({
   path: '/standorte',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TheGramRoute = TheGramRouteImport.update({
+  id: '/the-gram',
+  path: '/the-gram',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UeberUnsRoute = UeberUnsRouteImport.update({
   id: '/ueber-uns',
   path: '/ueber-uns',
@@ -84,6 +91,11 @@ const AuthenticatedChargenVerwaltungRoute =
     path: '/chargen-verwaltung',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedGramRoute = AuthenticatedGramRouteImport.update({
+  id: '/gram',
+  path: '/gram',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const SortimentIndexRoute = SortimentIndexRouteImport.update({
   id: '/sortiment/',
   path: '/sortiment/',
@@ -125,10 +137,12 @@ export interface FileRoutesByFullPath {
   '/mcp': typeof McpRoute
   '/news': typeof NewsRoute
   '/standorte': typeof StandorteRoute
+  '/the-gram': typeof TheGramRoute
   '/ueber-uns': typeof UeberUnsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/chargen-verwaltung': typeof AuthenticatedChargenVerwaltungRoute
+  '/gram': typeof AuthenticatedGramRoute
   '/sortiment/$slug': typeof SortimentSlugRoute
   '/sortiment/': typeof SortimentIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
@@ -143,10 +157,12 @@ export interface FileRoutesByTo {
   '/mcp': typeof McpRoute
   '/news': typeof NewsRoute
   '/standorte': typeof StandorteRoute
+  '/the-gram': typeof TheGramRoute
   '/ueber-uns': typeof UeberUnsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/chargen-verwaltung': typeof AuthenticatedChargenVerwaltungRoute
+  '/gram': typeof AuthenticatedGramRoute
   '/sortiment/$slug': typeof SortimentSlugRoute
   '/sortiment': typeof SortimentIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
@@ -163,10 +179,12 @@ export interface FileRoutesById {
   '/mcp': typeof McpRoute
   '/news': typeof NewsRoute
   '/standorte': typeof StandorteRoute
+  '/the-gram': typeof TheGramRoute
   '/ueber-uns': typeof UeberUnsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/_authenticated/chargen-verwaltung': typeof AuthenticatedChargenVerwaltungRoute
+  '/_authenticated/gram': typeof AuthenticatedGramRoute
   '/sortiment/$slug': typeof SortimentSlugRoute
   '/sortiment/': typeof SortimentIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
@@ -183,10 +201,12 @@ export interface FileRouteTypes {
     | '/mcp'
     | '/news'
     | '/standorte'
+    | '/the-gram'
     | '/ueber-uns'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/chargen-verwaltung'
+    | '/gram'
     | '/sortiment/$slug'
     | '/sortiment/'
     | '/.lovable/oauth/consent'
@@ -201,10 +221,12 @@ export interface FileRouteTypes {
     | '/mcp'
     | '/news'
     | '/standorte'
+    | '/the-gram'
     | '/ueber-uns'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/chargen-verwaltung'
+    | '/gram'
     | '/sortiment/$slug'
     | '/sortiment'
     | '/.lovable/oauth/consent'
@@ -220,10 +242,12 @@ export interface FileRouteTypes {
     | '/mcp'
     | '/news'
     | '/standorte'
+    | '/the-gram'
     | '/ueber-uns'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/_authenticated/chargen-verwaltung'
+    | '/_authenticated/gram'
     | '/sortiment/$slug'
     | '/sortiment/'
     | '/.lovable/oauth/consent'
@@ -240,6 +264,7 @@ export interface RootRouteChildren {
   McpRoute: typeof McpRoute
   NewsRoute: typeof NewsRoute
   StandorteRoute: typeof StandorteRoute
+  TheGramRoute: typeof TheGramRoute
   UeberUnsRoute: typeof UeberUnsRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -300,6 +325,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StandorteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/the-gram': {
+      id: '/the-gram'
+      path: '/the-gram'
+      fullPath: '/the-gram'
+      preLoaderRoute: typeof TheGramRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ueber-uns': {
       id: '/ueber-uns'
       path: '/ueber-uns'
@@ -326,6 +358,13 @@ declare module '@tanstack/react-router' {
       path: '/chargen-verwaltung'
       fullPath: '/chargen-verwaltung'
       preLoaderRoute: typeof AuthenticatedChargenVerwaltungRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/gram': {
+      id: '/_authenticated/gram'
+      path: '/gram'
+      fullPath: '/gram'
+      preLoaderRoute: typeof AuthenticatedGramRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/sortiment/': {
@@ -375,12 +414,14 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedChargenVerwaltungRoute: typeof AuthenticatedChargenVerwaltungRoute
+  AuthenticatedGramRoute: typeof AuthenticatedGramRoute
   AuthenticatedChargenBatchNumberRoute: typeof AuthenticatedChargenBatchNumberRoute
   AuthenticatedChargenIndexRoute: typeof AuthenticatedChargenIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedChargenVerwaltungRoute: AuthenticatedChargenVerwaltungRoute,
+  AuthenticatedGramRoute: AuthenticatedGramRoute,
   AuthenticatedChargenBatchNumberRoute: AuthenticatedChargenBatchNumberRoute,
   AuthenticatedChargenIndexRoute: AuthenticatedChargenIndexRoute,
 }
@@ -396,6 +437,7 @@ const rootRouteChildren: RootRouteChildren = {
   McpRoute: McpRoute,
   NewsRoute: NewsRoute,
   StandorteRoute: StandorteRoute,
+  TheGramRoute: TheGramRoute,
   UeberUnsRoute: UeberUnsRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:

@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ProductGrid } from "@/components/site/ProductGrid";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { useActiveLocation } from "@/context/location-context";
 
 export const Route = createFileRoute("/sortiment/")({

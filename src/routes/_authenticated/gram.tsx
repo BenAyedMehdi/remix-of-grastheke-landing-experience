@@ -3,17 +3,18 @@ import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Sparkles, PhoneCall } from "lucide-react";
 import { getGramMembership, gramDrops, gramServices } from "@/lib/gram";
+import { GramMark } from "@/components/site/GramMark";
 
 export const Route = createFileRoute("/_authenticated/gram")({
   head: () => ({
     meta: [
-      { title: "The Gram — Mitgliederbereich | Grastheke" },
+      { title: "the gram — Mitgliederbereich | Grastheke" },
       {
         name: "description",
         content:
-          "Exklusive Chargen-Drops, Vorabzugriff und persönliche Betreuung für Mitglieder von The Gram.",
+          "Exklusive Chargen-Drops, Vorabzugriff und persönliche Betreuung für Mitglieder von the gram.",
       },
-      { property: "og:title", content: "The Gram — Mitgliederbereich" },
+      { property: "og:title", content: "the gram — Mitgliederbereich" },
       { property: "og:description", content: "Drops und Services für Mitglieder." },
       { name: "robots", content: "noindex" },
     ],
@@ -57,7 +58,7 @@ function GramMemberArea() {
               Mitglied seit {joined}
             </p>
             <h1 className="mt-6 text-[2.8rem] font-medium leading-[0.95] tracking-tight md:text-7xl">
-              The Gram
+              <GramMark size={56} className="gap-5" />
             </h1>
           </div>
           <span className="rounded-full border border-background/25 px-4 py-2 font-mono text-xs uppercase tracking-[0.2em] opacity-70">

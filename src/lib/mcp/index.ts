@@ -1,4 +1,4 @@
-import { auth, defineMcp } from "@lovable.dev/mcp-js";
+import { auth, defineMcp, type AnyToolDefinition } from "@lovable.dev/mcp-js";
 import searchBatchesTool from "./tools/search-batches";
 import getBatchTool from "./tools/get-batch";
 import listBatchReviewsTool from "./tools/list-batch-reviews";
@@ -16,5 +16,10 @@ export default defineMcp({
     issuer: `https://${projectRef}.supabase.co/auth/v1`,
     acceptedAudiences: "authenticated",
   }),
-  tools: [searchBatchesTool, getBatchTool, listBatchReviewsTool, listMyReviewsTool],
+  tools: [
+    searchBatchesTool,
+    getBatchTool,
+    listBatchReviewsTool,
+    listMyReviewsTool,
+  ] as AnyToolDefinition[],
 });

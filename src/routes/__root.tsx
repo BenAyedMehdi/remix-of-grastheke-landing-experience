@@ -15,6 +15,10 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { AgeGate } from "@/components/site/AgeGate";
 import { LocationProvider } from "@/context/location-context";
+import {
+  HeaderScrollProvider,
+  useHeaderScroll,
+} from "@/context/header-scroll-context";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthRedirectHandler } from "@/components/site/AuthRedirectHandler";
 
@@ -139,16 +143,30 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <LocationProvider>
-        <AgeGate />
-        <AuthRedirectHandler />
-        <Header />
-        <main className="min-h-screen">
-          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-          <Outlet />
-        </main>
-        <Footer />
-        <Toaster />
+        <HeaderScrollProvider>
+          <AgeGate />
+          <AuthRedirectHandler />
+          <Header />
+          <ScrollSentinel />
+          <main className="min-h-screen">
+            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+            <Outlet />
+          </main>
+          <Footer />
+          <Toaster />
+        </HeaderScrollProvider>
       </LocationProvider>
     </QueryClientProvider>
+  );
+}
+
+function ScrollSentinel() {
+  const { sentinelRef } = useHeaderScroll();
+  return (
+    <div
+      ref={sentinelRef}
+      aria-hidden="true"
+      className="pointer-events-none h-px w-full"
+    />
   );
 }

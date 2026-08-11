@@ -2,6 +2,7 @@ import { Link, useLocation } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Menu, X, MapPin } from "lucide-react";
 import { useActiveLocation } from "@/context/location-context";
+import { useHeaderScroll } from "@/context/header-scroll-context";
 import logoAsset from "@/assets/grastheke-logo.png.asset.json";
 
 const nav = [
@@ -17,10 +18,10 @@ const nav = [
 const CLOSE_DURATION = 220;
 
 export function Header() {
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const { activeLocation } = useActiveLocation();
+  const { isScrolled } = useHeaderScroll();
   const location = useLocation();
   const activeRef = useRef<HTMLAnchorElement | null>(null);
 
@@ -28,13 +29,6 @@ export function Header() {
     (item) =>
       location.pathname === item.to || location.pathname.startsWith(`${item.to}/`)
   );
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     if (open && activeRef.current) {
@@ -74,7 +68,7 @@ export function Header() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-40 transition-all duration-300 ${
-        scrolled || visible
+        isScrolled || visible
           ? "bg-background/90 backdrop-blur-md border-b border-border"
           : "bg-transparent"
       }`}

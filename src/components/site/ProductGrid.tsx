@@ -15,7 +15,7 @@ export function ProductCard({ product }: { product: Product }) {
     <Link
       to="/sortiment/$slug"
       params={{ slug: product.slug }}
-      className="group block"
+      className="group flex h-full flex-col"
     >
       <div className="relative overflow-hidden bg-secondary">
         <img
@@ -30,20 +30,20 @@ export function ProductCard({ product }: { product: Product }) {
           {product.short} · {product.irradiation}
         </div>
       </div>
-      <div className="mt-4 flex items-start justify-between gap-4">
-        <div>
-          <p className="tracking-tight">{product.name}</p>
-          <p className="mt-1 text-sm text-muted-foreground">
+      <div className="mt-4 flex min-h-[3.75rem] items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="line-clamp-2 tracking-tight">{product.name}</p>
+          <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">
             {product.genetics} · {product.profile}
           </p>
         </div>
-        <p className="text-right text-sm text-muted-foreground">
+        <p className="shrink-0 whitespace-nowrap text-right text-sm leading-relaxed text-muted-foreground">
           THC {product.thc}
           <br />
           CBD {product.cbd}
         </p>
       </div>
-      <div className="mt-4 border-t border-border pt-3">
+      <div className="mt-auto border-t border-border pt-3">
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
           <span aria-hidden className="tracking-[0.2em] text-foreground">
             {"★".repeat(product.sampleReview.rating)}
@@ -51,7 +51,7 @@ export function ProductCard({ product }: { product: Product }) {
               {"★".repeat(5 - product.sampleReview.rating)}
             </span>
           </span>
-          <span>
+          <span className="truncate">
             {product.sampleReview.author} · Charge {product.sampleReview.batch}
           </span>
         </div>
@@ -224,7 +224,7 @@ export function ProductGrid() {
         </p>
       )}
 
-      <div className="mt-10 grid grid-cols-3 gap-x-3 gap-y-10 lg:grid-cols-5 lg:gap-x-6 lg:gap-y-12">
+      <div className="mt-10 grid auto-rows-fr grid-cols-3 items-stretch gap-x-3 gap-y-10 lg:grid-cols-5 lg:gap-x-6 lg:gap-y-12">
         {list.map((p) => (
           <ProductCard key={p.slug} product={p} />
         ))}

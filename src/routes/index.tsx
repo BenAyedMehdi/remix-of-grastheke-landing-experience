@@ -4,6 +4,7 @@ import { LocationPicker } from "@/components/site/LocationPicker";
 import { DropsSection } from "@/components/site/DropsSection";
 import { ProductGrid } from "@/components/site/ProductGrid";
 import { GramMark } from "@/components/site/GramMark";
+import { trackEvent } from "@/lib/analytics";
 
 export const Route = createFileRoute("/")({
   head: () => ({

@@ -150,7 +150,7 @@ export function Header() {
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                   activeProps={{ className: "block border-b border-border py-3.5 text-lg tracking-tight text-foreground font-medium last:border-0" }}
-                  activeOptions={{ exact: true }}
+                  activeOptions={{ exact: !item.matchSubpaths }}
                 >
                   {item.label}
                 </Link>

@@ -91,6 +91,12 @@ export type Product = {
   terpenes: { name: string; note: string }[];
   origin: string;
   irradiation: string;
+  sampleReview: {
+    author: string;
+    rating: number;
+    batch: string;
+    text: string;
+  };
 };
 
 export const products: Product[] = [
@@ -112,6 +118,12 @@ export const products: Product[] = [
     ],
     origin: "EU-GMP, Portugal (Platzhalter)",
     irradiation: "Beta-bestrahlt",
+    sampleReview: {
+      author: "M. K., 41",
+      rating: 5,
+      batch: "GT-01",
+      text: "Beispielbewertung: Dichte Blüten, erdig-süßes Aroma. Abends gut verträglich, der Schlaf ist seit der Umstellung deutlich ruhiger.",
+    },
   },
   {
     slug: "klarfeld-18",
@@ -131,6 +143,12 @@ export const products: Product[] = [
     ],
     origin: "EU-GMP, Kanada (Platzhalter)",
     irradiation: "Unbestrahlt",
+    sampleReview: {
+      author: "S. B., 34",
+      rating: 4,
+      batch: "GT-2026-0805-K",
+      text: "Beispielbewertung: Klares, zitrisches Profil und sauberer Abbrand. Tagsüber sehr gut anwendbar, ohne müde zu machen.",
+    },
   },
   {
     slug: "weissharz-26",
@@ -150,6 +168,12 @@ export const products: Product[] = [
     ],
     origin: "EU-GMP, Dänemark (Platzhalter)",
     irradiation: "Beta-bestrahlt",
+    sampleReview: {
+      author: "T. R., 52",
+      rating: 4,
+      batch: "GT-2026-0812-W",
+      text: "Beispielbewertung: Sehr harzig und kräftig – für mich eine Blüte mit niedriger Dosierung. Wirkung setzt zuverlässig ein.",
+    },
   },
   {
     slug: "bernstein-14",
@@ -169,6 +193,12 @@ export const products: Product[] = [
     ],
     origin: "EU-GMP, Portugal (Platzhalter)",
     irradiation: "Unbestrahlt",
+    sampleReview: {
+      author: "A. L., 29",
+      rating: 5,
+      batch: "GT-2026-0728-B",
+      text: "Beispielbewertung: Guter Einstieg. Mildes, warmes Aroma und eine angenehm klare Wirkung ohne Schwere.",
+    },
   },
 ];
 

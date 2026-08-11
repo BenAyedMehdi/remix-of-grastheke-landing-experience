@@ -28,6 +28,7 @@ const defaultLabels: Record<string, string> = {
 
 function useAutoBreadcrumbs(): BreadcrumbItem[] {
   const matches = useMatches();
+  console.log("[Breadcrumbs] matches:", matches.map((m) => ({ routeId: m.routeId, pathname: m.pathname, params: m.params })));
   const items: BreadcrumbItem[] = [];
 
   for (const match of matches) {

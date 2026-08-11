@@ -1,8 +1,14 @@
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
-import { products, type Product } from "@/lib/data";
-
-const filters = ["Alle", "Entspannung", "Fokus", "Energie"] as const;
+import { useMemo, useState } from "react";
+import { SlidersHorizontal, X } from "lucide-react";
+import {
+  products,
+  wirkprofile,
+  kollektionen,
+  type Product,
+  type WirkprofilId,
+  type KollektionId,
+} from "@/lib/data";
 
 export function ProductCard({ product }: { product: Product }) {
   return (

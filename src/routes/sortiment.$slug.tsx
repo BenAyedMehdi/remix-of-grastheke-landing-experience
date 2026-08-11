@@ -3,6 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 import { products, SHOP_BASE_URL, type Product } from "@/lib/data";
 import { useActiveLocation } from "@/context/location-context";
 import { ProductReviews } from "@/components/site/ProductReviews";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 
 export const Route = createFileRoute("/sortiment/$slug")({
   loader: ({ params }) => {
@@ -37,12 +38,13 @@ function ProductPage() {
 
   return (
     <section className="mx-auto max-w-[1400px] px-5 pb-24 pt-28 md:px-10 md:pb-32 md:pt-36">
-      <Link
-        to="/sortiment"
-        className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-      >
-        ← Zurück zum Sortiment
-      </Link>
+      <Breadcrumbs
+        items={[
+          { label: "Startseite", to: "/" },
+          { label: "Sortiment", to: "/sortiment" },
+          { label: product.name },
+        ]}
+      />
 
       <div className="mt-8 grid gap-12 lg:grid-cols-2 lg:gap-20">
         <div className="bg-secondary">

@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { locations } from "@/lib/data";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 
 export const Route = createFileRoute("/kontakt")({
   head: () => ({
@@ -27,6 +28,7 @@ function KontaktPage() {
 
   return (
     <section className="mx-auto max-w-[1400px] px-5 pb-24 pt-32 md:px-10 md:pb-32 md:pt-44">
+      <Breadcrumbs />
       <p className="text-eyebrow">Kontakt</p>
       <h1 className="mt-5 max-w-3xl text-4xl font-medium tracking-tight md:text-6xl">
         Wir sind erreichbar

@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { DropsSection } from "@/components/site/DropsSection";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 
 export const Route = createFileRoute("/news")({
   head: () => ({
@@ -23,6 +24,7 @@ export const Route = createFileRoute("/news")({
 function NewsPage() {
   return (
     <section className="mx-auto max-w-[1400px] px-5 pb-24 pt-32 md:px-10 md:pb-32 md:pt-44">
+      <Breadcrumbs />
       <p className="text-eyebrow">News & Drops</p>
       <h1 className="mt-5 max-w-3xl text-4xl font-medium tracking-tight md:text-6xl">
         Was gerade verfügbar ist

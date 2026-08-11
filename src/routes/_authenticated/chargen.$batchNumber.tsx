@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { FileText, Check, X } from "lucide-react";
 import { getBatchByNumber, formatDate, formatNumber } from "@/lib/batches";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 
 export const Route = createFileRoute("/_authenticated/chargen/$batchNumber")({
   head: ({ params }) => ({
@@ -57,12 +58,13 @@ function BatchDetailPage() {
 
   return (
     <section className="mx-auto max-w-[1400px] px-5 pb-24 pt-32 md:px-10 md:pt-44">
-      <Link
-        to="/chargen"
-        className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-      >
-        ← Chargensuche
-      </Link>
+      <Breadcrumbs
+        items={[
+          { label: "Startseite", to: "/" },
+          { label: "Chargensuche", to: "/chargen" },
+          { label: `Charge ${batchNumber}` },
+        ]}
+      />
 
       <div className="mt-8 flex flex-col justify-between gap-6 md:flex-row md:items-end">
         <div>

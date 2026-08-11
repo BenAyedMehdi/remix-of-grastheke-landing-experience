@@ -21,7 +21,19 @@ export const Route = createFileRoute("/")({
         content:
           "Partnerapotheken in fünf Städten, kuratiertes Sortiment, pharmazeutische Beratung.",
       },
+      { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Grastheke" },
+      { property: "og:locale", content: "de_DE" },
+      { property: "og:url", content: "https://grastheke-landing-express.lovable.app/" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Grastheke — Medizinisches Cannabis" },
+      {
+        name: "twitter:description",
+        content:
+          "Partnerapotheken in fünf Städten, kuratiertes Sortiment, pharmazeutische Beratung.",
+      },
     ],
+    links: [{ rel: "canonical", href: "https://grastheke-landing-express.lovable.app/" }],
   }),
   component: Index,
 });

@@ -22,8 +22,22 @@ export const Route = createFileRoute("/the-gram")({
         content: "Ein geschlossener Kreis. Limitierte Chargen. Zutritt per Code.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Grastheke" },
+      { property: "og:locale", content: "de_DE" },
+      {
+        property: "og:url",
+        content: "https://grastheke-landing-express.lovable.app/the-gram",
+      },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "the gram — Zugang nur auf Einladung" },
+      {
+        name: "twitter:description",
+        content: "Ein geschlossener Kreis. Limitierte Chargen. Zutritt per Code.",
+      },
       { name: "robots", content: "noindex" },
+    ],
+    links: [
+      { rel: "canonical", href: "https://grastheke-landing-express.lovable.app/the-gram" },
     ],
   }),
   component: TheGramGate,

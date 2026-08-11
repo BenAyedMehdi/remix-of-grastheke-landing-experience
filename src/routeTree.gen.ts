@@ -10,33 +10,79 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as NewsRouteImport } from './routes/news'
+import { Route as StandorteRouteImport } from './routes/standorte'
+import { Route as SortimentIndexRouteImport } from './routes/sortiment.index'
+import { Route as SortimentSlugRouteImport } from './routes/sortiment.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NewsRoute = NewsRouteImport.update({
+  id: '/news',
+  path: '/news',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StandorteRoute = StandorteRouteImport.update({
+  id: '/standorte',
+  path: '/standorte',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SortimentIndexRoute = SortimentIndexRouteImport.update({
+  id: '/sortiment/',
+  path: '/sortiment/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SortimentSlugRoute = SortimentSlugRouteImport.update({
+  id: '/sortiment/$slug',
+  path: '/sortiment/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/news': typeof NewsRoute
+  '/standorte': typeof StandorteRoute
+  '/sortiment/$slug': typeof SortimentSlugRoute
+  '/sortiment/': typeof SortimentIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/news': typeof NewsRoute
+  '/standorte': typeof StandorteRoute
+  '/sortiment/$slug': typeof SortimentSlugRoute
+  '/sortiment': typeof SortimentIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/news': typeof NewsRoute
+  '/standorte': typeof StandorteRoute
+  '/sortiment/$slug': typeof SortimentSlugRoute
+  '/sortiment/': typeof SortimentIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/news' | '/standorte' | '/sortiment/$slug' | '/sortiment/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/news' | '/standorte' | '/sortiment/$slug' | '/sortiment'
+  id:
+    | '__root__'
+    | '/'
+    | '/news'
+    | '/standorte'
+    | '/sortiment/$slug'
+    | '/sortiment/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  NewsRoute: typeof NewsRoute
+  StandorteRoute: typeof StandorteRoute
+  SortimentSlugRoute: typeof SortimentSlugRoute
+  SortimentIndexRoute: typeof SortimentIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,22 +94,44 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/news': {
+      id: '/news'
+      path: '/news'
+      fullPath: '/news'
+      preLoaderRoute: typeof NewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/standorte': {
+      id: '/standorte'
+      path: '/standorte'
+      fullPath: '/standorte'
+      preLoaderRoute: typeof StandorteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sortiment/': {
+      id: '/sortiment/'
+      path: '/sortiment'
+      fullPath: '/sortiment/'
+      preLoaderRoute: typeof SortimentIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sortiment/$slug': {
+      id: '/sortiment/$slug'
+      path: '/sortiment/$slug'
+      fullPath: '/sortiment/$slug'
+      preLoaderRoute: typeof SortimentSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  NewsRoute: NewsRoute,
+  StandorteRoute: StandorteRoute,
+  SortimentSlugRoute: SortimentSlugRoute,
+  SortimentIndexRoute: SortimentIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

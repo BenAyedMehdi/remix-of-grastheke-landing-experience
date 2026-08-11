@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
-import { products, SHOP_BASE_URL } from "@/lib/data";
+import { products, SHOP_BASE_URL, type Product } from "@/lib/data";
 import { useActiveLocation } from "@/context/location-context";
 
 export const Route = createFileRoute("/sortiment/$slug")({
@@ -82,7 +82,7 @@ function ProductPage() {
           <div className="mt-10">
             <p className="text-eyebrow">Terpenprofil</p>
             <ul className="mt-4 space-y-2">
-              {product.terpenes.map((t) => (
+              {product.terpenes.map((t: Product["terpenes"][number]) => (
                 <li
                   key={t.name}
                   className="flex items-baseline justify-between border-b border-border pb-2 text-sm"

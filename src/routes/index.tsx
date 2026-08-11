@@ -3,6 +3,7 @@ import { FileText, ScanLine, MapPin, ArrowRight } from "lucide-react";
 import { LocationPicker } from "@/components/site/LocationPicker";
 import { DropsSection } from "@/components/site/DropsSection";
 import { ProductGrid } from "@/components/site/ProductGrid";
+import { GramMark } from "@/components/site/GramMark";
 
 export const Route = createFileRoute("/")({
   head: () => ({

@@ -32,6 +32,15 @@ function safePath(value: string) {
   return value;
 }
 
+/** Query-bearing targets (e.g. the OAuth consent URL) need a full navigation. */
+function goTo(target: string, navigate: ReturnType<typeof useNavigate>) {
+  if (target.includes("?")) {
+    window.location.replace(target);
+    return;
+  }
+  navigate({ to: target, replace: true });
+}
+
 function AuthPage() {
   const navigate = useNavigate();
   const search = Route.useSearch();
@@ -43,7 +52,7 @@ function AuthPage() {
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
-      if (data.session) navigate({ to: target, replace: true });
+      if (data.session) goTo(target, navigate);
     });
   }, [navigate, target]);
 
@@ -55,7 +64,7 @@ function AuthPage() {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
         await supabase.rpc("ensure_profile");
-        navigate({ to: target, replace: true });
+        goTo(target, navigate);
       } else {
         const { data, error } = await supabase.auth.signUp({
           email,
@@ -65,7 +74,7 @@ function AuthPage() {
         if (error) throw error;
         if (data.session) {
           await supabase.rpc("ensure_profile");
-          navigate({ to: target, replace: true });
+          goTo(target, navigate);
         } else {
           toast.success("Bitte bestätigen Sie Ihre E-Mail-Adresse, um fortzufahren.");
         }
@@ -90,7 +99,7 @@ function AuthPage() {
       }
       if (result.redirected) return;
       await supabase.rpc("ensure_profile");
-      navigate({ to: target, replace: true });
+      goTo(target, navigate);
     } finally {
       setBusy(false);
     }

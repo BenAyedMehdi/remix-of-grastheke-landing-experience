@@ -357,7 +357,11 @@ function ReviewForm({
       ),
   });
 
-  const valid = overall > 0 && body.trim().length >= 20 && orderNumber.trim().length >= 3;
+  const valid =
+    Boolean(batchId) &&
+    overall > 0 &&
+    body.trim().length >= 20 &&
+    orderNumber.trim().length >= 3;
 
   return (
     <form
@@ -367,7 +371,26 @@ function ReviewForm({
       }}
       className="border border-border p-6"
     >
-      <p className="text-eyebrow">Bewertung zu Charge {batchNumber}</p>
+      <p className="text-eyebrow">Neue Bewertung</p>
+
+      <label className="mt-4 block text-eyebrow sm:max-w-sm">
+        Welche Charge bewerten Sie? *
+        <select
+          required
+          className={inputClass}
+          value={batchId}
+          onChange={(e) => setBatchId(e.target.value)}
+        >
+          {batches.map((batch) => (
+            <option key={batch.id} value={batch.id}>
+              {batch.batch_number}
+              {batch.packaged_date
+                ? ` · abgefüllt ${new Date(batch.packaged_date).toLocaleDateString("de-DE")}`
+                : ""}
+            </option>
+          ))}
+        </select>
+      </label>
 
       <div className="mt-5">
         <p className="text-sm">Gesamtbewertung *</p>

@@ -68,7 +68,7 @@ export function ProductReviews({
       <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
         <div>
           <h2 className="text-2xl font-medium tracking-tight">
-            Bewertungen zu dieser Charge
+            Patientenbewertungen zu {productName}
           </h2>
           <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
             Jede Charge von {productName} wird einzeln bewertet – Cannabis ist ein
@@ -85,9 +85,51 @@ export function ProductReviews({
           </div>
           <p className="mt-1 text-xs text-muted-foreground">
             {published.length} geprüfte Bewertung{published.length === 1 ? "" : "en"}
+            {batchFilter === "all" ? " (alle Chargen)" : ` zu Charge ${batchFilter}`}
           </p>
         </div>
       </div>
+
+      {!user && (
+        <div className="mt-8 border border-border p-6">
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            Bewertungen zu den einzelnen Chargen sind Patientinnen und Patienten mit
+            Login vorbehalten.
+          </p>
+          <Link
+            to="/auth"
+            search={{ redirect: `/sortiment/${productSlug}` }}
+            className="mt-4 inline-flex rounded-full bg-foreground px-6 py-3 text-sm text-background transition-opacity hover:opacity-85"
+          >
+            Anmelden
+          </Link>
+        </div>
+      )}
+
+      {user && batches.length > 0 && (
+        <div className="mt-8 flex flex-wrap items-center gap-3">
+          <span className="text-eyebrow">Nach Charge filtern</span>
+          <div className="flex flex-wrap gap-2">
+            <FilterChip
+              active={batchFilter === "all"}
+              label={`Alle Chargen (${allReviews.filter((r) => r.status === "approved").length})`}
+              onClick={() => setBatchFilter("all")}
+            />
+            {batches.map((batch) => (
+              <FilterChip
+                key={batch.id}
+                active={batchFilter === batch.batch_number}
+                label={`${batch.batch_number} (${
+                  allReviews.filter(
+                    (r) => r.batchNumber === batch.batch_number && r.status === "approved",
+                  ).length
+                })`}
+                onClick={() => setBatchFilter(batch.batch_number)}
+              />
+            ))}
+          </div>
+        </div>
+      )}
 
       {published.length > 0 && (
         <dl className="mt-8 grid gap-4 sm:grid-cols-3 lg:grid-cols-5">
@@ -113,20 +155,24 @@ export function ProductReviews({
         </dl>
       )}
 
-      {own ? (
+      {!user ? null : own ? (
         <OwnReviewNotice review={own} />
       ) : (
         <div className="mt-10">
           {formOpen ? (
             <ReviewForm
-              batchId={batchId}
-              batchNumber={batchNumber}
+              batches={batches}
+              initialBatchId={
+                batches.find((b) => b.batch_number === batchFilter)?.id ??
+                batches[0]?.id ??
+                ""
+              }
               onDone={() => {
                 setFormOpen(false);
                 void invalidate();
               }}
             />
-          ) : (
+          ) : batches.length > 0 ? (
             <button
               type="button"
               onClick={() => setFormOpen(true)}
@@ -134,7 +180,7 @@ export function ProductReviews({
             >
               Charge bewerten
             </button>
-          )}
+          ) : null}
         </div>
       )}
 

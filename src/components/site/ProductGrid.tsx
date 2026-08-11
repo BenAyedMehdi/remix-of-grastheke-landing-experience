@@ -27,23 +27,37 @@ export function formatCannabinoid(value: string): string {
 export function ProductCard({ product }: { product: Product }) {
   const thc = formatCannabinoid(product.thc);
   const cbd = formatCannabinoid(product.cbd);
+  const rating = product.sampleReview.rating;
+  const ariaLabel = [
+    `${product.name}, ${product.genetics}, Wirkprofil ${product.profile}`,
+    `THC ${thc}, CBD ${cbd}`,
+    `${product.short}, ${product.irradiation}`,
+    `Bewertung ${rating} von 5 Sternen aus Charge ${product.sampleReview.batch}`,
+    "Details ansehen",
+  ].join(". ");
   return (
+    <li className="flex h-full flex-col">
     <Link
       to="/sortiment/$slug"
       params={{ slug: product.slug }}
       data-testid="product-card"
-      className="group flex h-full flex-col"
+      aria-label={ariaLabel}
+      className="group flex h-full flex-col rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
     >
       <div className="relative overflow-hidden bg-secondary">
         <img
           src={product.image}
-          alt={`${product.name} – ${product.genetics} Blüte (Platzhalterbild)`}
+          alt=""
+          aria-hidden="true"
           loading="lazy"
           width={1024}
           height={1280}
           className="aspect-[4/5] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
         />
-        <div className="absolute inset-x-0 bottom-0 translate-y-3 bg-background/85 px-4 py-3 text-xs opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 bottom-0 translate-y-3 bg-background/85 px-4 py-3 text-xs text-foreground opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100"
+        >
           {product.short} · {product.irradiation}
         </div>
       </div>
@@ -52,9 +66,9 @@ export function ProductCard({ product }: { product: Product }) {
         className="mt-4 flex min-h-[7rem] flex-col items-start justify-start gap-2 sm:min-h-[5.5rem] sm:flex-row sm:justify-between sm:gap-3"
       >
         <div className="min-w-0 flex-1">
-          <p data-testid="product-card-name" className="tracking-tight">
+          <h3 data-testid="product-card-name" className="text-base font-normal tracking-tight">
             {product.name}
-          </p>
+          </h3>
           <p data-testid="product-card-category" className="mt-1 text-sm text-muted-foreground">
             {product.genetics} · {product.profile}
           </p>
@@ -74,11 +88,12 @@ export function ProductCard({ product }: { product: Product }) {
       <div data-testid="product-card-footer" className="mt-auto border-t border-border pt-3">
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
           <span aria-hidden className="tracking-[0.2em] text-foreground">
-            {"★".repeat(product.sampleReview.rating)}
+            {"★".repeat(rating)}
             <span className="text-muted-foreground">
-              {"★".repeat(5 - product.sampleReview.rating)}
+              {"★".repeat(5 - rating)}
             </span>
           </span>
+          <span className="sr-only">Bewertung {rating} von 5 Sternen.</span>
           <span>
             {product.sampleReview.author} · Charge {product.sampleReview.batch}
           </span>
@@ -88,6 +103,7 @@ export function ProductCard({ product }: { product: Product }) {
         </p>
       </div>
     </Link>
+    </li>
   );
 }
 

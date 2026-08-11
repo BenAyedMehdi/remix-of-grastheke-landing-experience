@@ -85,6 +85,11 @@ export type Product = {
   profile: "Entspannung" | "Fokus" | "Energie";
   thc: string;
   cbd: string;
+  wirkprofil: WirkprofilId[];
+  kollektion: KollektionId;
+  thcProzent: number;
+  cbdProzent: number;
+  standorte: string[];
   image: string;
   short: string;
   description: string;
@@ -98,6 +103,37 @@ export type Product = {
     text: string;
   };
 };
+
+export type WirkprofilId =
+  | "entspannend"
+  | "schmerzlindernd"
+  | "aktivierend"
+  | "schlaffoerdernd"
+  | "appetitanregend";
+
+export const wirkprofile: { id: WirkprofilId; label: string }[] = [
+  { id: "entspannend", label: "Beruhigend / Entspannend" },
+  { id: "schmerzlindernd", label: "Schmerzlindernd" },
+  { id: "aktivierend", label: "Aktivierend / Fokussierend" },
+  { id: "schlaffoerdernd", label: "Schlaffördernd" },
+  { id: "appetitanregend", label: "Appetitanregend" },
+];
+
+export type KollektionId = "kush" | "haze" | "cake" | "diesel" | "drops" | "classics";
+
+export const kollektionen: {
+  id: KollektionId;
+  label: string;
+  note: string;
+  color: string;
+}[] = [
+  { id: "kush", label: "Kush Collection", note: "erdig, harzig", color: "var(--kush)" },
+  { id: "haze", label: "Haze Collection", note: "frisch, zitrisch", color: "var(--haze)" },
+  { id: "cake", label: "Cake / Gelato Collection", note: "süß, cremig", color: "var(--cake)" },
+  { id: "diesel", label: "Diesel Collection", note: "kräftig, spritig", color: "var(--diesel)" },
+  { id: "drops", label: "Purplefarm Drops", note: "limitiert", color: "var(--drops)" },
+  { id: "classics", label: "Classics / Landrace", note: "traditionell", color: "var(--classics)" },
+];
 
 export const products: Product[] = [
   {

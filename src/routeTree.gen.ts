@@ -10,14 +10,21 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as NewsRouteImport } from './routes/news'
 import { Route as StandorteRouteImport } from './routes/standorte'
+import { Route as UeberUnsRouteImport } from './routes/ueber-uns'
 import { Route as SortimentIndexRouteImport } from './routes/sortiment.index'
 import { Route as SortimentSlugRouteImport } from './routes/sortiment.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KontaktRoute = KontaktRouteImport.update({
+  id: '/kontakt',
+  path: '/kontakt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NewsRoute = NewsRouteImport.update({
@@ -28,6 +35,11 @@ const NewsRoute = NewsRouteImport.update({
 const StandorteRoute = StandorteRouteImport.update({
   id: '/standorte',
   path: '/standorte',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UeberUnsRoute = UeberUnsRouteImport.update({
+  id: '/ueber-uns',
+  path: '/ueber-uns',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SortimentIndexRoute = SortimentIndexRouteImport.update({
@@ -43,44 +55,68 @@ const SortimentSlugRoute = SortimentSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/kontakt': typeof KontaktRoute
   '/news': typeof NewsRoute
   '/standorte': typeof StandorteRoute
+  '/ueber-uns': typeof UeberUnsRoute
   '/sortiment/$slug': typeof SortimentSlugRoute
   '/sortiment/': typeof SortimentIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/kontakt': typeof KontaktRoute
   '/news': typeof NewsRoute
   '/standorte': typeof StandorteRoute
+  '/ueber-uns': typeof UeberUnsRoute
   '/sortiment/$slug': typeof SortimentSlugRoute
   '/sortiment': typeof SortimentIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/kontakt': typeof KontaktRoute
   '/news': typeof NewsRoute
   '/standorte': typeof StandorteRoute
+  '/ueber-uns': typeof UeberUnsRoute
   '/sortiment/$slug': typeof SortimentSlugRoute
   '/sortiment/': typeof SortimentIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/news' | '/standorte' | '/sortiment/$slug' | '/sortiment/'
+  fullPaths:
+    | '/'
+    | '/kontakt'
+    | '/news'
+    | '/standorte'
+    | '/ueber-uns'
+    | '/sortiment/$slug'
+    | '/sortiment/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/news' | '/standorte' | '/sortiment/$slug' | '/sortiment'
+  to:
+    | '/'
+    | '/kontakt'
+    | '/news'
+    | '/standorte'
+    | '/ueber-uns'
+    | '/sortiment/$slug'
+    | '/sortiment'
   id:
     | '__root__'
     | '/'
+    | '/kontakt'
     | '/news'
     | '/standorte'
+    | '/ueber-uns'
     | '/sortiment/$slug'
     | '/sortiment/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  KontaktRoute: typeof KontaktRoute
   NewsRoute: typeof NewsRoute
   StandorteRoute: typeof StandorteRoute
+  UeberUnsRoute: typeof UeberUnsRoute
   SortimentSlugRoute: typeof SortimentSlugRoute
   SortimentIndexRoute: typeof SortimentIndexRoute
 }
@@ -92,6 +128,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kontakt': {
+      id: '/kontakt'
+      path: '/kontakt'
+      fullPath: '/kontakt'
+      preLoaderRoute: typeof KontaktRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/news': {
@@ -106,6 +149,13 @@ declare module '@tanstack/react-router' {
       path: '/standorte'
       fullPath: '/standorte'
       preLoaderRoute: typeof StandorteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ueber-uns': {
+      id: '/ueber-uns'
+      path: '/ueber-uns'
+      fullPath: '/ueber-uns'
+      preLoaderRoute: typeof UeberUnsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sortiment/': {
@@ -127,8 +177,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  KontaktRoute: KontaktRoute,
   NewsRoute: NewsRoute,
   StandorteRoute: StandorteRoute,
+  UeberUnsRoute: UeberUnsRoute,
   SortimentSlugRoute: SortimentSlugRoute,
   SortimentIndexRoute: SortimentIndexRoute,
 }

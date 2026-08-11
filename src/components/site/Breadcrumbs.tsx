@@ -29,7 +29,7 @@ const defaultLabels: Record<string, string> = {
 function useAutoBreadcrumbs(): BreadcrumbItem[] {
   const matches = useMatches();
   console.log("[Breadcrumbs] routeIds:", matches.map((m) => String(m.routeId)).join(", "));
-  const items: BreadcrumbItem[] = [];
+  const items: BreadcrumbItem[] = [{ label: "Startseite", to: "/" }];
 
   for (const match of matches) {
     const routeId = match.routeId as string;

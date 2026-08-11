@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { FileText, Check, X } from "lucide-react";
 import { getBatchByNumber, formatDate, formatNumber } from "@/lib/batches";
+import { BatchReviews } from "@/components/site/BatchReviews";
 
 export const Route = createFileRoute("/_authenticated/chargen/$batchNumber")({
   head: ({ params }) => ({
@@ -218,6 +219,13 @@ function BatchDetailPage() {
           {batch.notes}
         </p>
       )}
+
+      <BatchReviews
+        batchId={batch.id}
+        batchNumber={batch.batch_number}
+        productName={batch.product_name}
+      />
+
       <p className="mt-6 text-xs text-muted-foreground">
         Stand der Daten: {formatDate(batch.updated_at.slice(0, 10))}. Abgabe
         ausschließlich auf ärztliche Verordnung.

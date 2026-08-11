@@ -5,6 +5,7 @@ import { DropsSection } from "@/components/site/DropsSection";
 import { ProductGrid } from "@/components/site/ProductGrid";
 import { PartnerHighlightSection } from "@/components/site/PartnerHighlightSection";
 import { GramMark } from "@/components/site/GramMark";
+import { ActiveLocationCard } from "@/components/app/ActiveLocationCard";
 import { trackEvent } from "@/lib/analytics";
 
 export const Route = createFileRoute("/")({
@@ -80,6 +81,9 @@ function Index() {
             >
               Charge nachvollziehen
             </Link>
+          </div>
+          <div className="fade-up mt-10 max-w-xl">
+            <ActiveLocationCard />
           </div>
           <div className="fade-up mt-16 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-3">
             {[

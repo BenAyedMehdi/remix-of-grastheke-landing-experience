@@ -273,7 +273,7 @@ function SectionHead({
 
 function Features() {
   return (
-    <section id="funktionen" className="px-5 pt-40 md:pt-56">
+    <section id="funktionen" className="scroll-mt-28 px-5 pt-40 md:pt-56">
       <SectionHead
         eyebrow="Funktionen"
         title="Alles Wesentliche an einem Ort"
@@ -311,7 +311,7 @@ function Statement() {
 
 function Sortiment() {
   return (
-    <section id="sortiment" className="px-5">
+    <section id="sortiment" className="scroll-mt-28 px-5">
       <SectionHead
         eyebrow="Sortiment"
         title="Genetiken nach Wirkprofil"
@@ -370,7 +370,7 @@ function Sortiment() {
 
 function Benefits() {
   return (
-    <section id="vorteile" className="px-5 pt-28 md:pt-40">
+    <section id="vorteile" className="scroll-mt-28 px-5 pt-28 md:pt-40">
       <div className="mx-auto grid max-w-6xl items-center gap-8 rounded-4xl border border-border bg-card p-6 shadow-soft md:grid-cols-2 md:p-10">
         <div className="overflow-hidden rounded-3xl">
           <img
@@ -452,7 +452,7 @@ function Faq() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="px-5 pt-28 md:pt-40">
+    <section id="faq" className="scroll-mt-28 px-5 pt-28 md:pt-40">
       <SectionHead eyebrow="FAQ" title="Häufige Fragen" />
       <div className="mx-auto mt-12 max-w-3xl space-y-3">
         {faqs.map((f, i) => {
@@ -490,7 +490,7 @@ function Faq() {
 
 function CtaFooter() {
   return (
-    <footer id="waitlist" className="px-5 pb-10 pt-28 md:pt-40">
+    <footer id="waitlist" className="scroll-mt-28 px-5 pb-10 pt-28 md:pt-40">
       <div className="mx-auto max-w-6xl rounded-4xl bg-primary px-6 py-16 text-center text-primary-foreground md:px-16 md:py-24">
         <h2 className="mx-auto max-w-2xl text-3xl font-semibold leading-tight md:text-5xl">
           Zugang zu Grastheke Studio sichern

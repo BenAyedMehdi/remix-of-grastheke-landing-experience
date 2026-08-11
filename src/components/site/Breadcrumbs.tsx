@@ -44,16 +44,16 @@ function useAutoBreadcrumbs(): BreadcrumbItem[] {
       continue;
     }
 
-    if (routeId === "/sortiment/$slug" && params?.slug) {
-      items.push({ label, to: "/sortiment/$slug", params: { slug: params.slug } });
+    if (routeId === "/sortiment/$slug" && params?.["slug"]) {
+      items.push({ label, to: "/sortiment/$slug", params: { slug: params["slug"] } });
       continue;
     }
 
-    if (routeId === "/chargen/$batchNumber" && params?.batchNumber) {
+    if (routeId === "/chargen/$batchNumber" && params?.["batchNumber"]) {
       items.push({
-        label: `Charge ${params.batchNumber}`,
+        label: `Charge ${params["batchNumber"]}`,
         to: "/chargen/$batchNumber",
-        params: { batchNumber: params.batchNumber },
+        params: { batchNumber: params["batchNumber"] },
       });
       continue;
     }

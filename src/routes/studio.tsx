@@ -351,6 +351,23 @@ function Sortiment() {
                   <dd className="mt-0.5 font-medium">{p.cbd}</dd>
                 </div>
               </dl>
+              <figure className="mt-5 rounded-2xl bg-secondary p-4">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <span aria-hidden className="tracking-[0.15em] text-foreground">
+                    {"★".repeat(p.sampleReview.rating)}
+                    <span className="opacity-30">
+                      {"★".repeat(5 - p.sampleReview.rating)}
+                    </span>
+                  </span>
+                  <span>Charge {p.sampleReview.batch}</span>
+                </div>
+                <blockquote className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {p.sampleReview.text}
+                </blockquote>
+                <figcaption className="mt-2 text-xs text-muted-foreground">
+                  {p.sampleReview.author}
+                </figcaption>
+              </figure>
               <a
                 href={`${SHOP_BASE_URL}/${p.slug}`}
                 target="_blank"

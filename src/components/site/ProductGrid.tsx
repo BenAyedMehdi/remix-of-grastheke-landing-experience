@@ -15,6 +15,7 @@ export function ProductCard({ product }: { product: Product }) {
     <Link
       to="/sortiment/$slug"
       params={{ slug: product.slug }}
+      data-testid="product-card"
       className="group flex h-full flex-col"
     >
       <div className="relative overflow-hidden bg-secondary">
@@ -30,20 +31,28 @@ export function ProductCard({ product }: { product: Product }) {
           {product.short} · {product.irradiation}
         </div>
       </div>
-      <div className="mt-4 flex min-h-[7rem] flex-col items-start justify-start gap-2 sm:min-h-[5.5rem] sm:flex-row sm:justify-between sm:gap-3">
+      <div
+        data-testid="product-card-header"
+        className="mt-4 flex min-h-[7rem] flex-col items-start justify-start gap-2 sm:min-h-[5.5rem] sm:flex-row sm:justify-between sm:gap-3"
+      >
         <div className="min-w-0 flex-1">
-          <p className="tracking-tight">{product.name}</p>
-          <p className="mt-1 text-sm text-muted-foreground">
+          <p data-testid="product-card-name" className="tracking-tight">
+            {product.name}
+          </p>
+          <p data-testid="product-card-category" className="mt-1 text-sm text-muted-foreground">
             {product.genetics} · {product.profile}
           </p>
         </div>
-        <p className="shrink-0 text-left text-xs leading-relaxed text-muted-foreground sm:w-[6.5rem] sm:text-right sm:text-sm">
+        <p
+          data-testid="product-card-meta"
+          className="shrink-0 text-left text-xs leading-relaxed text-muted-foreground sm:w-[6.5rem] sm:text-right sm:text-sm"
+        >
           <span className="whitespace-nowrap">THC {product.thc}</span>
           <br />
           <span className="whitespace-nowrap">CBD {product.cbd}</span>
         </p>
       </div>
-      <div className="mt-auto border-t border-border pt-3">
+      <div data-testid="product-card-footer" className="mt-auto border-t border-border pt-3">
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
           <span aria-hidden className="tracking-[0.2em] text-foreground">
             {"★".repeat(product.sampleReview.rating)}
@@ -224,7 +233,10 @@ export function ProductGrid() {
         </p>
       )}
 
-      <div className="mt-10 grid auto-rows-fr grid-cols-2 items-stretch gap-x-4 gap-y-10 sm:grid-cols-3 lg:grid-cols-5 lg:gap-x-6 lg:gap-y-12">
+      <div
+        data-testid="product-grid"
+        className="mt-10 grid auto-rows-fr grid-cols-2 items-stretch gap-x-4 gap-y-10 sm:grid-cols-3 lg:grid-cols-5 lg:gap-x-6 lg:gap-y-12"
+      >
         {list.map((p) => (
           <ProductCard key={p.slug} product={p} />
         ))}

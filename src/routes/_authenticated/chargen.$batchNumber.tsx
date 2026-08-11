@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { FileText, Check, X } from "lucide-react";
 import { getBatchByNumber, formatDate, formatNumber } from "@/lib/batches";
-import { BatchReviews } from "@/components/site/BatchReviews";
 
 export const Route = createFileRoute("/_authenticated/chargen/$batchNumber")({
   head: ({ params }) => ({

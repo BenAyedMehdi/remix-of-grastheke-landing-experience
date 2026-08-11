@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { locations } from "@/lib/data";
+import { GramMark } from "@/components/site/GramMark";
 
 export function Footer() {
   const [email, setEmail] = useState("");
@@ -90,11 +91,11 @@ export function Footer() {
           <div className="flex items-center gap-4">
             <Link
               to="/the-gram"
-              aria-label="The Gram"
+              aria-label="the gram"
               title="—"
-              className="font-mono tracking-[0.4em] text-muted-foreground/30 transition-colors duration-500 hover:text-foreground"
+              className="text-muted-foreground/30 transition-colors duration-500 hover:text-foreground"
             >
-              ◇ tg
+              <GramMark markOnly size={18} />
             </Link>
             <p>© 2026 Grastheke · Alle Inhalte sind Platzhalter (Demo)</p>
           </div>

@@ -9,6 +9,14 @@ export type ReviewWithVotes = Review & {
   myVote: -1 | 1 | 0;
 };
 
+export type ProductBatch = {
+  id: string;
+  batch_number: string;
+  packaged_date: string | null;
+};
+
+export type ProductReview = ReviewWithVotes & { batchNumber: string };
+
 export const ratingAspects = [
   ["rating_aroma", "Aroma"],
   ["rating_taste", "Geschmack"],

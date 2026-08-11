@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { FileText, ScanLine, MapPin, ArrowRight } from "lucide-react";
+import { FileText, ScanLine, MapPin, ArrowRight, Building2 } from "lucide-react";
 import { LocationPicker } from "@/components/site/LocationPicker";
 import { DropsSection } from "@/components/site/DropsSection";
 import { ProductGrid } from "@/components/site/ProductGrid";

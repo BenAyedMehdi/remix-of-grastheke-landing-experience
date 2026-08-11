@@ -15,6 +15,10 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { AgeGate } from "@/components/site/AgeGate";
 import { LocationProvider } from "@/context/location-context";
+import {
+  HeaderScrollProvider,
+  useHeaderScroll,
+} from "@/context/header-scroll-context";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthRedirectHandler } from "@/components/site/AuthRedirectHandler";
 

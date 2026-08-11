@@ -48,6 +48,9 @@ export const Route = createFileRoute("/apothekenkooperation")({
 function CooperationPage() {
   return (
     <div className="pt-16 md:pt-20">
+      <div className="mx-auto max-w-[1400px] px-5 pt-6 md:px-10 md:pt-8">
+        <Breadcrumbs />
+      </div>
       <section className="relative overflow-hidden border-b border-border">
         <div className="dot-grid absolute inset-0 opacity-60" aria-hidden="true" />
         <div

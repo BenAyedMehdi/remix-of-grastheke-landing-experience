@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { CooperationSection } from "@/components/site/CooperationSection";
 import { CooperationFAQ } from "@/components/site/CooperationFAQ";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import heroImage from "@/assets/kooperation-hero.jpg";
 
 export const Route = createFileRoute("/apothekenkooperation")({

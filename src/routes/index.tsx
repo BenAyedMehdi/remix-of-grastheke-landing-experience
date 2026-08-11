@@ -173,13 +173,21 @@ function Index() {
         </div>
       </section>
 
-      <section className="border-t border-border bg-foreground text-background">
+      <section
+        className="border-t border-border bg-foreground text-background"
+        aria-labelledby="gram-teaser-title"
+      >
         <Link
           to="/the-gram"
-          className="group relative mx-auto flex max-w-[1400px] flex-col gap-6 overflow-hidden px-5 py-20 md:flex-row md:items-center md:justify-between md:px-10 md:py-28"
+          onClick={() =>
+            trackEvent("gram_enter_click", {
+              source: "homepage_teaser",
+            })
+          }
+          className="group relative mx-auto flex max-w-[1400px] flex-col gap-6 overflow-hidden px-5 py-20 transition-all duration-300 ease-out active:scale-[0.995] md:flex-row md:items-center md:justify-between md:px-10 md:py-28"
         >
           <div
-            className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-[0.08]"
+            className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-[0.08] group-active:opacity-[0.12]"
             aria-hidden="true"
             style={{
               backgroundImage: "radial-gradient(currentColor 1px, transparent 1px)",
@@ -187,20 +195,30 @@ function Index() {
             }}
           />
           <div className="relative">
-            <p className="font-mono text-xs uppercase tracking-[0.45em] opacity-40">
+            <p className="font-mono text-xs uppercase tracking-[0.45em] opacity-50 transition-opacity duration-300 group-active:opacity-70">
               ◇ Zugang beschränkt
             </p>
-            <h2 className="mt-6 text-3xl font-medium tracking-tight opacity-70 transition-opacity duration-500 group-hover:opacity-100 md:text-6xl">
+            <h2
+              id="gram-teaser-title"
+              className="mt-6 text-3xl font-medium tracking-tight opacity-80 transition-opacity duration-500 group-hover:opacity-100 group-active:opacity-100 md:text-6xl"
+            >
               <GramMark size={44} className="gap-4" />
             </h2>
-            <p className="mt-5 max-w-md text-sm leading-relaxed opacity-40 transition-opacity duration-500 group-hover:opacity-70">
+            <p className="mt-5 max-w-md text-sm leading-relaxed opacity-50 transition-opacity duration-500 group-hover:opacity-70 group-active:opacity-80">
               Es gibt ein Sortiment, das hier nicht steht. Wer den Code hat, weiß bereits,
               wofür.
             </p>
           </div>
-          <span className="relative inline-flex items-center gap-3 self-start rounded-full border border-background/25 px-6 py-3 text-sm opacity-50 transition-all duration-500 group-hover:gap-5 group-hover:opacity-100">
-            Code eingeben
-            <ArrowRight className="size-4" strokeWidth={1.5} />
+          <span className="relative inline-flex min-h-[3rem] items-center gap-3 self-start rounded-full border border-background/25 bg-background/[0.03] px-6 py-3 text-sm opacity-70 transition-all duration-300 ease-out group-hover:gap-5 group-hover:border-background/40 group-hover:opacity-100 group-active:scale-[0.97] group-active:border-background/60 group-active:bg-background/[0.08] group-active:opacity-100 sm:min-h-[3.25rem]">
+            <span className="font-medium">Code eingeben</span>
+            <ArrowRight
+              className="size-4 transition-transform duration-300 ease-out group-hover:translate-x-1 group-active:translate-x-2"
+              strokeWidth={1.5}
+            />
+            <span
+              className="pointer-events-none absolute inset-0 rounded-full opacity-0 shadow-[inset_0_0_24px_color-mix(in_oklab,var(--color-background)_8%,transparent)] transition-opacity duration-300 group-active:opacity-100"
+              aria-hidden="true"
+            />
           </span>
         </Link>
       </section>

@@ -56,7 +56,7 @@ export function ProductCard({ product }: { product: Product }) {
         />
         <div
           aria-hidden="true"
-          className="absolute inset-x-0 bottom-0 translate-y-3 bg-background/85 px-4 py-3 text-xs text-foreground opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100"
+          className="absolute inset-x-0 bottom-0 translate-y-3 bg-background/85 px-4 py-3 text-xs text-foreground opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-focus:translate-y-0 group-focus:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100"
         >
           {product.short} · {product.irradiation}
         </div>

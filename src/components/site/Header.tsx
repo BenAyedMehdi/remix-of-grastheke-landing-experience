@@ -68,7 +68,7 @@ export function Header() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-40 transition-all duration-300 ${
-        scrolled || visible
+        isScrolled || visible
           ? "bg-background/90 backdrop-blur-md border-b border-border"
           : "bg-transparent"
       }`}

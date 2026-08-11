@@ -92,6 +92,7 @@ function CooperationPage() {
         </div>
       </section>
       <CooperationSection />
+      <CooperationFAQ />
     </div>
   );
 }

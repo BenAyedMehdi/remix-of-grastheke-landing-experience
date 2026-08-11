@@ -3,6 +3,7 @@ import { FileText, ScanLine, MapPin, ArrowRight } from "lucide-react";
 import { LocationPicker } from "@/components/site/LocationPicker";
 import { DropsSection } from "@/components/site/DropsSection";
 import { ProductGrid } from "@/components/site/ProductGrid";
+import { GramMark } from "@/components/site/GramMark";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -171,7 +172,7 @@ function Index() {
               ◇ Zugang beschränkt
             </p>
             <h2 className="mt-6 text-3xl font-medium tracking-tight opacity-70 transition-opacity duration-500 group-hover:opacity-100 md:text-6xl">
-              The Gram
+              <GramMark size={44} className="gap-4" />
             </h2>
             <p className="mt-5 max-w-md text-sm leading-relaxed opacity-40 transition-opacity duration-500 group-hover:opacity-70">
               Es gibt ein Sortiment, das hier nicht steht. Wer den Code hat, weiß bereits,

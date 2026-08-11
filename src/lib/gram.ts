@@ -75,6 +75,6 @@ export const gramServices = [
   },
   {
     title: "Verkostungsprotokolle",
-    text: "Interne Sensorik- und Laborprotokolle, die außerhalb von The Gram nicht veröffentlicht werden.",
+    text: "Interne Sensorik- und Laborprotokolle, die außerhalb von the gram nicht veröffentlicht werden.",
   },
 ] as const;

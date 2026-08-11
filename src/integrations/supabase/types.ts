@@ -292,6 +292,68 @@ export type Database = {
         }
         Relationships: []
       }
+      gram_invites: {
+        Row: {
+          active: boolean
+          code: string
+          created_at: string
+          created_by: string | null
+          expires_at: string | null
+          label: string | null
+          max_uses: number
+          used_count: number
+        }
+        Insert: {
+          active?: boolean
+          code: string
+          created_at?: string
+          created_by?: string | null
+          expires_at?: string | null
+          label?: string | null
+          max_uses?: number
+          used_count?: number
+        }
+        Update: {
+          active?: boolean
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          expires_at?: string | null
+          label?: string | null
+          max_uses?: number
+          used_count?: number
+        }
+        Relationships: []
+      }
+      gram_members: {
+        Row: {
+          invite_code: string | null
+          joined_at: string
+          tier: string
+          user_id: string
+        }
+        Insert: {
+          invite_code?: string | null
+          joined_at?: string
+          tier?: string
+          user_id: string
+        }
+        Update: {
+          invite_code?: string | null
+          joined_at?: string
+          tier?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "gram_members_invite_code_fkey"
+            columns: ["invite_code"]
+            isOneToOne: false
+            referencedRelation: "gram_invites"
+            referencedColumns: ["code"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string
@@ -408,7 +470,9 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_gram_member: { Args: { _user_id: string }; Returns: boolean }
       is_staff: { Args: { _user_id: string }; Returns: boolean }
+      redeem_gram_invite: { Args: { _code: string }; Returns: Json }
     }
     Enums: {
       app_role: "admin" | "staff" | "patient"

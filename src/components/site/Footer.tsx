@@ -87,7 +87,17 @@ export function Footer() {
             18+ · Abgabe ausschließlich an volljährige Personen mit gültiger ärztlicher
             Verordnung.
           </p>
-          <p>© 2026 Grastheke · Alle Inhalte sind Platzhalter (Demo)</p>
+          <div className="flex items-center gap-4">
+            <Link
+              to="/the-gram"
+              aria-label="The Gram"
+              title="—"
+              className="font-mono tracking-[0.4em] text-muted-foreground/30 transition-colors duration-500 hover:text-foreground"
+            >
+              ◇ tg
+            </Link>
+            <p>© 2026 Grastheke · Alle Inhalte sind Platzhalter (Demo)</p>
+          </div>
         </div>
       </div>
     </footer>

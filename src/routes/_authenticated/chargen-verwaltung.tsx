@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useRoles } from "@/hooks/use-session";
 import { searchBatches, getBatchByNumber, type Batch } from "@/lib/batches";
+import { ReviewModeration } from "@/components/site/ReviewModeration";
 
 export const Route = createFileRoute("/_authenticated/chargen-verwaltung")({
   head: () => ({
@@ -143,6 +144,8 @@ function AdminPage() {
           </p>
         )}
       </div>
+
+      <ReviewModeration />
     </section>
   );
 }

@@ -3,6 +3,7 @@ import { FileText, ScanLine, MapPin, ArrowRight, Building2 } from "lucide-react"
 import { LocationPicker } from "@/components/site/LocationPicker";
 import { DropsSection } from "@/components/site/DropsSection";
 import { ProductGrid } from "@/components/site/ProductGrid";
+import { PartnerHighlightSection } from "@/components/site/PartnerHighlightSection";
 import { GramMark } from "@/components/site/GramMark";
 import { trackEvent } from "@/lib/analytics";
 
@@ -152,6 +153,8 @@ function Index() {
           </div>
         </div>
       </section>
+
+      <PartnerHighlightSection />
 
       <section className="mx-auto max-w-[1400px] px-5 py-24 md:px-10 md:py-32">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">

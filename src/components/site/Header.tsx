@@ -6,13 +6,13 @@ import { useHeaderScroll } from "@/context/header-scroll-context";
 import logoAsset from "@/assets/grastheke-logo.png.asset.json";
 
 const nav = [
-  { to: "/standorte", label: "Standorte" },
-  { to: "/sortiment", label: "Sortiment" },
-  { to: "/chargen", label: "Chargen" },
-  { to: "/news", label: "News & Drops" },
-  { to: "/apothekenkooperation", label: "Kooperation" },
-  { to: "/ueber-uns", label: "Über uns" },
-  { to: "/kontakt", label: "Kontakt" },
+  { to: "/standorte", label: "Standorte", matchSubpaths: false },
+  { to: "/sortiment", label: "Sortiment", matchSubpaths: true },
+  { to: "/chargen", label: "Chargen", matchSubpaths: true },
+  { to: "/news", label: "News & Drops", matchSubpaths: true },
+  { to: "/apothekenkooperation", label: "Kooperation", matchSubpaths: true },
+  { to: "/ueber-uns", label: "Über uns", matchSubpaths: false },
+  { to: "/kontakt", label: "Kontakt", matchSubpaths: false },
 ] as const;
 
 const CLOSE_DURATION = 220;
@@ -25,10 +25,11 @@ export function Header() {
   const location = useLocation();
   const activeRef = useRef<HTMLAnchorElement | null>(null);
 
-  const activeIndex = nav.findIndex(
-    (item) =>
-      location.pathname === item.to || location.pathname.startsWith(`${item.to}/`)
-  );
+  const activeIndex = nav.findIndex((item) => {
+    const exact = location.pathname === item.to;
+    const subpath = item.matchSubpaths && location.pathname.startsWith(`${item.to}/`);
+    return exact || subpath;
+  });
 
   useEffect(() => {
     if (open && activeRef.current) {
@@ -98,7 +99,7 @@ export function Header() {
               to={item.to}
               className="text-sm text-muted-foreground transition-colors hover:text-foreground"
               activeProps={{ className: "text-foreground font-medium" }}
-              activeOptions={{ exact: true }}
+              activeOptions={{ exact: !item.matchSubpaths }}
             >
               {item.label}
             </Link>
@@ -149,7 +150,7 @@ export function Header() {
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                   activeProps={{ className: "block border-b border-border py-3.5 text-lg tracking-tight text-foreground font-medium last:border-0" }}
-                  activeOptions={{ exact: true }}
+                  activeOptions={{ exact: !item.matchSubpaths }}
                 >
                   {item.label}
                 </Link>

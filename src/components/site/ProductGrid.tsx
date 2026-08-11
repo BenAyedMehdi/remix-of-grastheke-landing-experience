@@ -10,7 +10,6 @@ import {
   type KollektionId,
 } from "@/lib/data";
 
-export function ProductCard({ product }: { product: Product }) {
 /**
  * Normalisiert Cannabinoid-Angaben auf eine einheitliche, kurze Schreibweise,
  * damit variable Rohdaten die Kartenhoehe nicht beeinflussen.

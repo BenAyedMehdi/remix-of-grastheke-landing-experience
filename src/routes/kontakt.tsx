@@ -23,6 +23,7 @@ export const Route = createFileRoute("/kontakt")({
 
 function KontaktPage() {
   const [sent, setSent] = useState(false);
+  const [applied, setApplied] = useState(false);
 
   return (
     <section className="mx-auto max-w-[1400px] px-5 pb-24 pt-32 md:px-10 md:pb-32 md:pt-44">
@@ -91,6 +92,83 @@ function KontaktPage() {
             </div>
           ))}
         </div>
+      </div>
+
+      <div id="bewerbung" className="mt-24 scroll-mt-28 border-t border-border pt-16">
+        <p className="text-eyebrow">Bewerbung</p>
+        <h2 className="mt-5 max-w-3xl text-3xl font-medium tracking-tight md:text-5xl">
+          Werde Teil von grastheke
+        </h2>
+        <p className="mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground">
+          Du bist Inhaberin oder Inhaber einer Apotheke und möchtest dich als grastheke
+          lizenzieren lassen? Oder du bist Existenzgründerin bzw. Existenzgründer und
+          möchtest eine neue Apotheke unter dem grastheke-Konzept eröffnen? Wir freuen uns
+          auf deine Bewerbung.
+        </p>
+
+        <form
+          className="mt-12 max-w-2xl"
+          onSubmit={(e) => {
+            e.preventDefault();
+            setApplied(true);
+          }}
+        >
+          <div className="grid gap-8 sm:grid-cols-2">
+            {[
+              { id: "b-name", label: "Name", type: "text" },
+              { id: "b-email", label: "E-Mail", type: "email" },
+              { id: "b-phone", label: "Telefon", type: "tel" },
+              { id: "b-pharmacy", label: "Apothekenname / Standort", type: "text" },
+            ].map((f) => (
+              <div key={f.id}>
+                <label htmlFor={f.id} className="text-eyebrow">
+                  {f.label}
+                </label>
+                <input
+                  id={f.id}
+                  type={f.type}
+                  required
+                  className="mt-3 w-full border-b border-foreground/25 bg-transparent pb-2 text-base outline-none transition-colors focus:border-accent"
+                />
+              </div>
+            ))}
+            <div>
+              <label htmlFor="b-type" className="text-eyebrow">
+                Art der Bewerbung
+              </label>
+              <select
+                id="b-type"
+                required
+                defaultValue="Bestehende Apotheke"
+                className="mt-3 w-full border-b border-foreground/25 bg-transparent pb-2 text-base outline-none transition-colors focus:border-accent"
+              >
+                <option>Bestehende Apotheke</option>
+                <option>Existenzgründung</option>
+              </select>
+            </div>
+          </div>
+          <div className="mt-8">
+            <label htmlFor="b-message" className="text-eyebrow">
+              Nachricht
+            </label>
+            <textarea
+              id="b-message"
+              rows={4}
+              className="mt-3 w-full resize-none border-b border-foreground/25 bg-transparent pb-2 text-base outline-none transition-colors focus:border-accent"
+            />
+          </div>
+          <button
+            type="submit"
+            className="mt-10 w-full rounded-full bg-accent px-8 py-4 text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90 sm:w-auto"
+          >
+            Bewerbung absenden
+          </button>
+          {applied && (
+            <p className="mt-4 text-sm text-accent">
+              Danke für deine Bewerbung – Demo-Formular ohne Versand.
+            </p>
+          )}
+        </form>
       </div>
     </section>
   );

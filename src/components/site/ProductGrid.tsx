@@ -235,7 +235,7 @@ export function ProductGrid() {
 
       <div
         data-testid="product-grid"
-        className="mt-10 grid auto-rows-fr grid-cols-2 items-stretch gap-x-4 gap-y-10 sm:grid-cols-3 lg:grid-cols-5 lg:gap-x-6 lg:gap-y-12"
+        className="mt-10 grid auto-rows-fr grid-cols-2 items-stretch gap-x-4 gap-y-10 sm:grid-cols-3 sm:gap-x-5 lg:grid-cols-4 lg:gap-x-6 lg:gap-y-12"
       >
         {list.map((p) => (
           <ProductCard key={p.slug} product={p} />

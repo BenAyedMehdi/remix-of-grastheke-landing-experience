@@ -23,13 +23,15 @@ BASELINES = ROOT / "baselines"
 ARTIFACTS = ROOT / "artifacts"
 UPDATE = "--update" in sys.argv
 
+# (label, viewport-Breite, viewport-Hoehe, erwartete Spalten pro Reihe)
 BREAKPOINTS = [
-    ("mobile-390", 390, 1400),
-    ("mobile-440", 440, 1400),
-    ("tablet-768", 768, 1400),
-    ("desktop-1024", 1024, 1400),
-    ("desktop-1280", 1280, 1400),
-    ("desktop-1600", 1600, 1400),
+    ("mobile-390", 390, 1400, 2),
+    ("mobile-440", 440, 1400, 2),
+    ("tablet-768", 768, 1400, 3),
+    ("tablet-900", 900, 1400, 3),
+    ("desktop-1024", 1024, 1400, 4),
+    ("desktop-1280", 1280, 1400, 4),
+    ("desktop-1600", 1600, 1400, 4),
 ]
 
 # Textlaengen-Stresstests: (name, kuenstlicher Produktname, Kategorie, THC, CBD)
@@ -144,7 +146,7 @@ async def main():
     BASELINES.mkdir(exist_ok=True)
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
-        for label, w, h in BREAKPOINTS:
+        for label, w, h, expected_cols in BREAKPOINTS:
             ctx = await browser.new_context(
                 viewport={"width": w, "height": h}, device_scale_factor=1
             )
@@ -168,11 +170,22 @@ async def main():
                     await page.wait_for_timeout(200)
                 cards = await page.evaluate(MEASURE)
                 check(len(cards) > 0, f"{key}: keine Produktkarten gefunden")
-                for row in rows_of(cards):
+                rows = rows_of(cards)
+                full_rows = [r for r in rows if len(r) == max(len(x) for x in rows)]
+                check(
+                    len(full_rows[0]) == expected_cols,
+                    f"{key}: {len(full_rows[0])} Spalten statt erwartet {expected_cols}",
+                )
+                for row in rows:
                     heights = {c["height"] for c in row}
                     check(
                         max(heights) - min(heights) <= 1,
                         f"{key}: unterschiedliche Kartenhoehen in einer Zeile {sorted(heights)}",
+                    )
+                    bottoms = {c["bottom"] for c in row}
+                    check(
+                        max(bottoms) - min(bottoms) <= 1,
+                        f"{key}: Karten schliessen nicht buendig ab {sorted(bottoms)}",
                     )
                     header_tops = {c["headerTop"] for c in row}
                     check(

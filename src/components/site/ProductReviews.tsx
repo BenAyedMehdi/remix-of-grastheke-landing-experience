@@ -1,40 +1,53 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ThumbsDown, ThumbsUp, ShieldCheck, Clock } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { StarRating } from "@/components/site/StarRating";
 import { useSession } from "@/hooks/use-session";
 import {
   castVote,
-  getBatchReviews,
+  getProductReviews,
   ratingAspects,
   submitReview,
-  type ReviewWithVotes,
+  type ProductBatch,
+  type ProductReview,
 } from "@/lib/reviews";
 
 const inputClass =
   "mt-1.5 w-full rounded-md border border-border bg-background px-3 py-2 text-sm outline-none focus:border-foreground";
 
-export function BatchReviews({
-  batchId,
-  batchNumber,
+export function ProductReviews({
+  productSlug,
   productName,
 }: {
-  batchId: string;
-  batchNumber: string;
+  productSlug: string;
   productName: string;
 }) {
   const { user } = useSession();
   const queryClient = useQueryClient();
   const [formOpen, setFormOpen] = useState(false);
+  const [batchFilter, setBatchFilter] = useState("all");
 
-  const { data: reviews = [], isLoading } = useQuery({
-    queryKey: ["batch-reviews", batchId, user?.id ?? null],
-    queryFn: () => getBatchReviews(batchId, user?.id ?? null),
+  const { data, isLoading } = useQuery({
+    queryKey: ["product-reviews", productSlug, user?.id ?? null],
+    queryFn: () => getProductReviews(productSlug, user?.id ?? null),
+    enabled: Boolean(user),
+    retry: false,
   });
 
+  const batches: ProductBatch[] = data?.batches ?? [];
+  const allReviews = useMemo(() => data?.reviews ?? [], [data]);
+  const reviews = useMemo(
+    () =>
+      batchFilter === "all"
+        ? allReviews
+        : allReviews.filter((r) => r.batchNumber === batchFilter),
+    [allReviews, batchFilter],
+  );
+
   const invalidate = () =>
-    queryClient.invalidateQueries({ queryKey: ["batch-reviews", batchId] });
+    queryClient.invalidateQueries({ queryKey: ["product-reviews", productSlug] });
 
   const vote = useMutation({
     mutationFn: ({ reviewId, value }: { reviewId: string; value: -1 | 1 | 0 }) =>

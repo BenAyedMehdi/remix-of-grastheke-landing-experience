@@ -4,6 +4,7 @@ import { LocationPicker } from "@/components/site/LocationPicker";
 import { DropsSection } from "@/components/site/DropsSection";
 import { ProductGrid } from "@/components/site/ProductGrid";
 import { GramMark } from "@/components/site/GramMark";
+import { trackEvent } from "@/lib/analytics";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -218,6 +219,12 @@ function Index() {
             </div>
             <Link
               to="/apothekenkooperation"
+              onClick={() =>
+                trackEvent("cooperation_cta_click", {
+                  location: "homepage_after_gram",
+                  label: "Kooperation entdecken",
+                })
+              }
               className="inline-flex min-h-[3.25rem] w-full shrink-0 items-center justify-center gap-3 rounded-full bg-foreground px-8 py-4 text-center text-sm text-background transition-all hover:gap-5 hover:opacity-85 sm:w-auto"
             >
               Kooperation entdecken

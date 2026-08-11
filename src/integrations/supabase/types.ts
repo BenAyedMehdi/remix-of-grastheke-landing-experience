@@ -96,6 +96,80 @@ export type Database = {
           },
         ]
       }
+      batch_reviews: {
+        Row: {
+          batch_id: string
+          body: string
+          consumption_method: string | null
+          created_at: string
+          display_name: string | null
+          id: string
+          rating_aroma: number | null
+          rating_burn: number | null
+          rating_consistency: number | null
+          rating_effect: number | null
+          rating_overall: number
+          rating_taste: number | null
+          rejection_reason: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: Database["public"]["Enums"]["review_status"]
+          title: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          batch_id: string
+          body: string
+          consumption_method?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          rating_aroma?: number | null
+          rating_burn?: number | null
+          rating_consistency?: number | null
+          rating_effect?: number | null
+          rating_overall: number
+          rating_taste?: number | null
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: Database["public"]["Enums"]["review_status"]
+          title?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          batch_id?: string
+          body?: string
+          consumption_method?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          rating_aroma?: number | null
+          rating_burn?: number | null
+          rating_consistency?: number | null
+          rating_effect?: number | null
+          rating_overall?: number
+          rating_taste?: number | null
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: Database["public"]["Enums"]["review_status"]
+          title?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "batch_reviews_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "batches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       batch_terpenes: {
         Row: {
           batch_id: string
@@ -236,6 +310,67 @@ export type Database = {
         }
         Relationships: []
       }
+      review_verifications: {
+        Row: {
+          created_at: string
+          order_number: string
+          pharmacy: string | null
+          review_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          order_number: string
+          pharmacy?: string | null
+          review_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          order_number?: string
+          pharmacy?: string | null
+          review_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "review_verifications_review_id_fkey"
+            columns: ["review_id"]
+            isOneToOne: true
+            referencedRelation: "batch_reviews"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      review_votes: {
+        Row: {
+          created_at: string
+          review_id: string
+          user_id: string
+          value: number
+        }
+        Insert: {
+          created_at?: string
+          review_id: string
+          user_id: string
+          value: number
+        }
+        Update: {
+          created_at?: string
+          review_id?: string
+          user_id?: string
+          value?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "review_votes_review_id_fkey"
+            columns: ["review_id"]
+            isOneToOne: false
+            referencedRelation: "batch_reviews"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -274,6 +409,7 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "staff" | "patient"
+      review_status: "pending" | "approved" | "rejected"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -402,6 +538,7 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "staff", "patient"],
+      review_status: ["pending", "approved", "rejected"],
     },
   },
 } as const

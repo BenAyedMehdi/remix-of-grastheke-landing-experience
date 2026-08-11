@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as ApothekenkooperationRouteImport } from './routes/apothekenkooperation'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as McpRouteImport } from './routes/mcp'
@@ -36,6 +37,11 @@ const IndexRoute = IndexRouteImport.update({
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApothekenkooperationRoute = ApothekenkooperationRouteImport.update({
+  id: '/apothekenkooperation',
+  path: '/apothekenkooperation',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -132,6 +138,7 @@ const AuthenticatedChargenBatchNumberRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/apothekenkooperation': typeof ApothekenkooperationRoute
   '/auth': typeof AuthRoute
   '/kontakt': typeof KontaktRoute
   '/mcp': typeof McpRoute
@@ -152,6 +159,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/apothekenkooperation': typeof ApothekenkooperationRoute
   '/auth': typeof AuthRoute
   '/kontakt': typeof KontaktRoute
   '/mcp': typeof McpRoute
@@ -174,6 +182,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/apothekenkooperation': typeof ApothekenkooperationRoute
   '/auth': typeof AuthRoute
   '/kontakt': typeof KontaktRoute
   '/mcp': typeof McpRoute
@@ -196,6 +205,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/apothekenkooperation'
     | '/auth'
     | '/kontakt'
     | '/mcp'
@@ -216,6 +226,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/apothekenkooperation'
     | '/auth'
     | '/kontakt'
     | '/mcp'
@@ -237,6 +248,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_authenticated'
+    | '/apothekenkooperation'
     | '/auth'
     | '/kontakt'
     | '/mcp'
@@ -259,6 +271,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  ApothekenkooperationRoute: typeof ApothekenkooperationRoute
   AuthRoute: typeof AuthRoute
   KontaktRoute: typeof KontaktRoute
   McpRoute: typeof McpRoute
@@ -288,6 +301,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/apothekenkooperation': {
+      id: '/apothekenkooperation'
+      path: '/apothekenkooperation'
+      fullPath: '/apothekenkooperation'
+      preLoaderRoute: typeof ApothekenkooperationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -432,6 +452,7 @@ const AuthenticatedRouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  ApothekenkooperationRoute: ApothekenkooperationRoute,
   AuthRoute: AuthRoute,
   KontaktRoute: KontaktRoute,
   McpRoute: McpRoute,

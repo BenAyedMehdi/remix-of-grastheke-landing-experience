@@ -63,6 +63,12 @@ function Index() {
           <div className="fade-up mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
             <Link
               to="/standorte"
+              onClick={() =>
+                trackEvent("location_cta_click", {
+                  location: "homepage_hero",
+                  label: "Standort wählen",
+                })
+              }
               className="inline-flex items-center justify-center rounded-full bg-foreground px-8 py-4 text-sm text-background transition-opacity hover:opacity-85"
             >
               Standort wählen

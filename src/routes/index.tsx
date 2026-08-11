@@ -159,7 +159,7 @@ function Index() {
           className="group relative mx-auto flex max-w-[1400px] flex-col gap-6 overflow-hidden px-5 py-20 md:flex-row md:items-center md:justify-between md:px-10 md:py-28"
         >
           <div
-            className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+            className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-[0.08]"
             aria-hidden="true"
             style={{
               backgroundImage: "radial-gradient(currentColor 1px, transparent 1px)",

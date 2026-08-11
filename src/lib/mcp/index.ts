@@ -1,4 +1,4 @@
-import { auth, defineMcp, type AnyToolDefinition } from "@lovable.dev/mcp-js";
+import { auth, defineMcp } from "@lovable.dev/mcp-js";
 import searchBatchesTool from "./tools/search-batches";
 import getBatchTool from "./tools/get-batch";
 import listBatchReviewsTool from "./tools/list-batch-reviews";
@@ -21,5 +21,5 @@ export default defineMcp({
     getBatchTool,
     listBatchReviewsTool,
     listMyReviewsTool,
-  ] as AnyToolDefinition[],
+  ] as unknown as Parameters<typeof defineMcp>[0]["tools"],
 });

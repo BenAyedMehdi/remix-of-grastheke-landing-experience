@@ -11,6 +11,21 @@ import {
 } from "@/lib/data";
 
 export function ProductCard({ product }: { product: Product }) {
+/**
+ * Normalisiert Cannabinoid-Angaben auf eine einheitliche, kurze Schreibweise,
+ * damit variable Rohdaten die Kartenhoehe nicht beeinflussen.
+ */
+export function formatCannabinoid(value: string): string {
+  const cleaned = value
+    .replace(/^(THC|CBD)\s*/i, "")
+    .replace(/\s+/g, " ")
+    .replace(/\s*[-–—]\s*/g, "–")
+    .replace(/\s*%/g, "%")
+    .trim();
+  return cleaned.length > 12 ? `${cleaned.slice(0, 11).trimEnd()}…` : cleaned;
+}
+
+export function ProductCard({ product }: { product: Product }) {
   const thc = formatCannabinoid(product.thc);
   const cbd = formatCannabinoid(product.cbd);
   return (

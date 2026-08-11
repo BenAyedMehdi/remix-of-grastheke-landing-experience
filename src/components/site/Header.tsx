@@ -7,6 +7,7 @@ import logoAsset from "@/assets/grastheke-logo.png.asset.json";
 const nav = [
   { to: "/standorte", label: "Standorte" },
   { to: "/sortiment", label: "Sortiment" },
+  { to: "/chargen", label: "Chargen" },
   { to: "/news", label: "News & Drops" },
   { to: "/ueber-uns", label: "Über uns" },
   { to: "/kontakt", label: "Kontakt" },

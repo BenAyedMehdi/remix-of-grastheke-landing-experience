@@ -6,6 +6,11 @@ import product4 from "@/assets/product-4.jpg";
 import news1 from "@/assets/news-1.jpg";
 import news2 from "@/assets/news-2.jpg";
 import news3 from "@/assets/news-3.jpg";
+import cityBerlin from "@/assets/city-berlin.jpg";
+import cityHamburg from "@/assets/city-hamburg.jpg";
+import cityKoeln from "@/assets/city-koeln.jpg";
+import cityMuenchen from "@/assets/city-muenchen.jpg";
+import cityLeipzig from "@/assets/city-leipzig.jpg";
 
 export const SHOP_BASE_URL = "https://shop.grastheke.de/produkt";
 
@@ -17,6 +22,7 @@ export type Location = {
   zip: string;
   hours: string;
   phone: string;
+  image: string;
 };
 
 export const locations: Location[] = [
@@ -28,6 +34,7 @@ export const locations: Location[] = [
     zip: "10115",
     hours: "Mo–Fr 09–19 Uhr, Sa 10–14 Uhr",
     phone: "+49 30 000000",
+    image: cityBerlin,
   },
   {
     id: "hamburg",
@@ -37,6 +44,7 @@ export const locations: Location[] = [
     zip: "22765",
     hours: "Mo–Fr 08:30–18:30 Uhr",
     phone: "+49 40 000000",
+    image: cityHamburg,
   },
   {
     id: "koeln",
@@ -46,6 +54,7 @@ export const locations: Location[] = [
     zip: "50823",
     hours: "Mo–Fr 09–18:30 Uhr, Sa 10–13 Uhr",
     phone: "+49 221 000000",
+    image: cityKoeln,
   },
   {
     id: "muenchen",
@@ -55,6 +64,7 @@ export const locations: Location[] = [
     zip: "81371",
     hours: "Mo–Fr 09–19 Uhr",
     phone: "+49 89 000000",
+    image: cityMuenchen,
   },
   {
     id: "leipzig",
@@ -64,6 +74,7 @@ export const locations: Location[] = [
     zip: "04275",
     hours: "Mo–Fr 08–18 Uhr",
     phone: "+49 341 000000",
+    image: cityLeipzig,
   },
 ];
 

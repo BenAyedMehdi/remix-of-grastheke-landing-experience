@@ -261,6 +261,10 @@ export function ProductGrid() {
         </p>
       </div>
 
+      <h2 className="sr-only" id="produktliste-heading">
+        Produktliste
+      </h2>
+
       {relaxed && (
         <p className="mt-5 rounded-xl border border-border bg-secondary px-4 py-3 text-sm text-muted-foreground">
           Keine exakten Treffer – ähnliche Produkte. Die Kollektion wurde für diese Ansicht
@@ -268,14 +272,16 @@ export function ProductGrid() {
         </p>
       )}
 
-      <div
+      <ul
+        role="list"
+        aria-labelledby="produktliste-heading"
         data-testid="product-grid"
-        className="mt-10 grid auto-rows-fr grid-cols-2 items-stretch gap-x-4 gap-y-10 sm:grid-cols-3 sm:gap-x-5 lg:grid-cols-4 lg:gap-x-6 lg:gap-y-12"
+        className="mt-10 grid auto-rows-fr list-none grid-cols-2 items-stretch gap-x-4 gap-y-10 p-0 sm:grid-cols-3 sm:gap-x-5 lg:grid-cols-4 lg:gap-x-6 lg:gap-y-12"
       >
         {list.map((p) => (
           <ProductCard key={p.slug} product={p} />
         ))}
-      </div>
+      </ul>
     </div>
   );
 }

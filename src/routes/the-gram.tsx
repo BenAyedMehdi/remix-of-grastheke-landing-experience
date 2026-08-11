@@ -5,17 +5,18 @@ import { toast } from "sonner";
 import { KeyRound, Lock, MoveRight } from "lucide-react";
 import { useSession } from "@/hooks/use-session";
 import { getGramMembership, redeemGramInvite, gramServices } from "@/lib/gram";
+import { GramMark } from "@/components/site/GramMark";
 
 export const Route = createFileRoute("/the-gram")({
   head: () => ({
     meta: [
-      { title: "The Gram — Zugang nur auf Einladung | Grastheke" },
+      { title: "the gram — Zugang nur auf Einladung | Grastheke" },
       {
         name: "description",
         content:
-          "The Gram ist der geschlossene Kreis von Grastheke: exklusive Chargen-Drops, Vorabzugriff und persönliche pharmazeutische Betreuung. Zutritt ausschließlich per Einladungscode.",
+          "the gram ist der geschlossene Kreis von Grastheke: exklusive Chargen-Drops, Vorabzugriff und persönliche pharmazeutische Betreuung. Zutritt ausschließlich per Einladungscode.",
       },
-      { property: "og:title", content: "The Gram — Zugang nur auf Einladung" },
+      { property: "og:title", content: "the gram — Zugang nur auf Einladung" },
       {
         property: "og:description",
         content: "Ein geschlossener Kreis. Limitierte Chargen. Zutritt per Code.",
@@ -91,7 +92,7 @@ function TheGramGate() {
             Geschlossener Kreis · seit 2024
           </p>
           <h1 className="mt-8 text-[3rem] font-medium leading-[0.95] tracking-tight md:text-[7rem]">
-            The Gram
+            <GramMark size={88} className="gap-6" />
           </h1>
           <p className="mt-8 max-w-xl text-base leading-relaxed opacity-70 md:text-lg">
             Ein Store im Store. Nicht beworben, nicht auffindbar, nicht käuflich.

@@ -219,11 +219,24 @@ function BatchDetailPage() {
         </p>
       )}
 
-      <BatchReviews
-        batchId={batch.id}
-        batchNumber={batch.batch_number}
-        productName={batch.product_name}
-      />
+      {batch.product_slug && (
+        <div className="mt-16 border-t border-border pt-8">
+          <h2 className="text-lg font-medium tracking-tight">
+            Patientenbewertungen
+          </h2>
+          <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
+            Bewertungen werden bei der jeweiligen Blüte gesammelt und lassen sich dort
+            nach Charge filtern – auch nach dieser Charge {batch.batch_number}.
+          </p>
+          <Link
+            to="/sortiment/$slug"
+            params={{ slug: batch.product_slug }}
+            className="mt-4 inline-flex rounded-full border border-border px-6 py-3 text-sm transition-colors hover:border-foreground"
+          >
+            Bewertungen zu {batch.product_name} ansehen
+          </Link>
+        </div>
+      )}
 
       <p className="mt-6 text-xs text-muted-foreground">
         Stand der Daten: {formatDate(batch.updated_at.slice(0, 10))}. Abgabe

@@ -57,7 +57,6 @@ export async function getBatchReviews(batchId: string, userId: string | null) {
 
 export type ReviewInput = {
   batchId: string;
-  batchId: string;
   userId: string;
   displayName: string;
   orderNumber: string;

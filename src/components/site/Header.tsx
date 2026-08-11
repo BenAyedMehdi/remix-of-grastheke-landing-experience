@@ -2,6 +2,7 @@ import { Link, useLocation } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Menu, X, MapPin } from "lucide-react";
 import { useActiveLocation } from "@/context/location-context";
+import { useHeaderScroll } from "@/context/header-scroll-context";
 import logoAsset from "@/assets/grastheke-logo.png.asset.json";
 
 const nav = [

@@ -186,6 +186,8 @@ function Index() {
           </span>
         </Link>
       </section>
+
+      <CooperationSection />
     </>
   );
 }

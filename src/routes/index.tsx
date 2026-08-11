@@ -95,6 +95,8 @@ function Index() {
         </div>
       </section>
 
+      <CooperationSection />
+
       <section className="mx-auto max-w-[1400px] px-5 py-24 md:px-10 md:py-32">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>

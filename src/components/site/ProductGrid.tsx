@@ -10,7 +10,23 @@ import {
   type KollektionId,
 } from "@/lib/data";
 
+/**
+ * Normalisiert Cannabinoid-Angaben auf eine einheitliche, kurze Schreibweise,
+ * damit variable Rohdaten die Kartenhoehe nicht beeinflussen.
+ */
+export function formatCannabinoid(value: string): string {
+  const cleaned = value
+    .replace(/^(THC|CBD)\s*/i, "")
+    .replace(/\s+/g, " ")
+    .replace(/\s*[-–—]\s*/g, "–")
+    .replace(/\s*%/g, "%")
+    .trim();
+  return cleaned.length > 12 ? `${cleaned.slice(0, 11).trimEnd()}…` : cleaned;
+}
+
 export function ProductCard({ product }: { product: Product }) {
+  const thc = formatCannabinoid(product.thc);
+  const cbd = formatCannabinoid(product.cbd);
   return (
     <Link
       to="/sortiment/$slug"
@@ -45,11 +61,14 @@ export function ProductCard({ product }: { product: Product }) {
         </div>
         <p
           data-testid="product-card-meta"
-          className="shrink-0 text-left text-xs leading-relaxed text-muted-foreground sm:w-[6.5rem] sm:text-right sm:text-sm"
+          className="h-[2.5rem] shrink-0 overflow-hidden text-left text-xs leading-[1.25rem] tabular-nums text-muted-foreground sm:w-[6.5rem] sm:text-right"
         >
-          <span className="whitespace-nowrap">THC {product.thc}</span>
-          <br />
-          <span className="whitespace-nowrap">CBD {product.cbd}</span>
+          <span className="block truncate" title={`THC ${thc}`}>
+            THC {thc}
+          </span>
+          <span className="block truncate" title={`CBD ${cbd}`}>
+            CBD {cbd}
+          </span>
         </p>
       </div>
       <div data-testid="product-card-footer" className="mt-auto border-t border-border pt-3">

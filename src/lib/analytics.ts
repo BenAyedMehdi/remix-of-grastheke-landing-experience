@@ -22,6 +22,10 @@ export interface AnalyticsEventProperties {
     location: string;
     label: string;
   };
+  location_cta_click: {
+    location: string;
+    label: string;
+  };
   location_select: {
     city: string;
   };

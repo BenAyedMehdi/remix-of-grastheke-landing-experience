@@ -194,6 +194,9 @@ export function ProductReviews({
             <div className="flex flex-wrap items-center gap-3">
               <StarRating value={review.rating_overall} size="size-4" />
               <span className="text-sm">{review.title ?? "Bewertung"}</span>
+              <span className="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">
+                Charge {review.batchNumber}
+              </span>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-secondary px-3 py-1 text-xs text-muted-foreground">
                 <ShieldCheck className="size-3.5" strokeWidth={1.5} />
                 Bestellung verifiziert
@@ -253,23 +256,50 @@ export function ProductReviews({
         ))}
       </ul>
 
-      {!isLoading && published.length === 0 && (
+      {user && !isLoading && published.length === 0 && (
         <p className="mt-10 text-sm text-muted-foreground">
-          Für diese Charge liegen noch keine geprüften Bewertungen vor.
+          {batchFilter === "all"
+            ? "Für diese Blüte liegen noch keine geprüften Bewertungen vor."
+            : `Für Charge ${batchFilter} liegen noch keine geprüften Bewertungen vor.`}
         </p>
       )}
     </div>
   );
 }
 
-function OwnReviewNotice({ review }: { review: ReviewWithVotes }) {
+function FilterChip({
+  active,
+  label,
+  onClick,
+}: {
+  active: boolean;
+  label: string;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className={`rounded-full border px-4 py-2 text-xs transition-colors ${
+        active
+          ? "border-foreground bg-foreground text-background"
+          : "border-border text-muted-foreground hover:border-foreground"
+      }`}
+    >
+      {label}
+    </button>
+  );
+}
+
+function OwnReviewNotice({ review }: { review: ProductReview }) {
   if (review.status === "approved") return null;
   return (
     <div className="mt-10 border border-border p-5">
       <p className="flex items-center gap-2 text-sm">
         <Clock className="size-4" strokeWidth={1.5} />
         {review.status === "pending"
-          ? "Ihre Bewertung wird derzeit anhand Ihrer Bestellnummer geprüft."
+          ? `Ihre Bewertung zu Charge ${review.batchNumber} wird derzeit anhand Ihrer Bestellnummer geprüft.`
           : "Ihre Bewertung wurde nicht freigegeben."}
       </p>
       {review.rejection_reason && (
@@ -282,15 +312,16 @@ function OwnReviewNotice({ review }: { review: ReviewWithVotes }) {
 }
 
 function ReviewForm({
-  batchId,
-  batchNumber,
+  batches,
+  initialBatchId,
   onDone,
 }: {
-  batchId: string;
-  batchNumber: string;
+  batches: ProductBatch[];
+  initialBatchId: string;
   onDone: () => void;
 }) {
   const { user } = useSession();
+  const [batchId, setBatchId] = useState(initialBatchId);
   const [overall, setOverall] = useState(0);
   const [aspects, setAspects] = useState<Record<string, number>>({});
   const [displayName, setDisplayName] = useState("");

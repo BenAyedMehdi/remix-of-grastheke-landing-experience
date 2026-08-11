@@ -1,0 +1,112 @@
+{
+  "version": 1,
+  "sdk_version": "0.26.2",
+  "path": "/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://tdokxxntuvozreixrtsa.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "grastheke-landing-experience",
+      "version": "0.1.0",
+      "title": "Grastheke Landing Experience"
+    },
+    "tools": [
+      {
+        "name": "search_batches",
+        "title": "Chargen suchen",
+        "description": "Sucht Grastheke-Chargen nach Chargennummer, Produktname oder Sorte und liefert die wichtigsten Kennwerte (THC, CBD, Status).",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "query": {
+              "description": "Suchbegriff, z. B. eine Chargennummer oder ein Produktname.",
+              "type": "string"
+            },
+            "limit": {
+              "description": "Maximale Trefferzahl (Standard 20).",
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_batch",
+        "title": "Chargendetails abrufen",
+        "description": "Liefert alle Daten zu einer Charge: Stammdaten, Terpenprofil, CoA-Laborwerte und Durchschnitt der freigegebenen Patientenbewertungen.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "batch_number": {
+              "type": "string",
+              "description": "Chargennummer, z. B. GT-01."
+            }
+          },
+          "required": [
+            "batch_number"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_batch_reviews",
+        "title": "Bewertungen einer Charge",
+        "description": "Listet die freigegebenen Patientenbewertungen zu einer Charge inklusive Teilnoten (Aroma, Geschmack, Wirkung, Konsistenz, Abbrand).",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "batch_number": {
+              "type": "string",
+              "description": "Chargennummer, z. B. GT-01."
+            }
+          },
+          "required": [
+            "batch_number"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_my_reviews",
+        "title": "Eigene Bewertungen",
+        "description": "Listet die Bewertungen der angemeldeten Person inklusive Prüfstatus (in Prüfung, freigegeben, abgelehnt).",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}

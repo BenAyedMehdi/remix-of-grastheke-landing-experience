@@ -30,14 +30,14 @@ export function ProductCard({ product }: { product: Product }) {
           {product.short} · {product.irradiation}
         </div>
       </div>
-      <div className="mt-4 flex min-h-[3.75rem] items-start justify-between gap-3">
-        <div className="min-w-0">
-          <p className="line-clamp-2 tracking-tight">{product.name}</p>
-          <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">
+      <div className="mt-4 flex min-h-[5.5rem] items-start justify-between gap-3">
+        <div className="min-w-0 flex-1">
+          <p className="break-words tracking-tight">{product.name}</p>
+          <p className="mt-1 break-words text-sm text-muted-foreground">
             {product.genetics} · {product.profile}
           </p>
         </div>
-        <p className="shrink-0 whitespace-nowrap text-right text-sm leading-relaxed text-muted-foreground">
+        <p className="w-[6.5rem] max-w-[45%] shrink-0 text-right text-sm leading-relaxed text-muted-foreground">
           THC {product.thc}
           <br />
           CBD {product.cbd}

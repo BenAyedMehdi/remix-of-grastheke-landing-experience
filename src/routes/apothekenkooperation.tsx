@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { CooperationSection } from "@/components/site/CooperationSection";
+import { CooperationFAQ } from "@/components/site/CooperationFAQ";
 import heroImage from "@/assets/kooperation-hero.jpg";
 
 export const Route = createFileRoute("/apothekenkooperation")({
@@ -91,6 +92,7 @@ function CooperationPage() {
         </div>
       </section>
       <CooperationSection />
+      <CooperationFAQ />
     </div>
   );
 }

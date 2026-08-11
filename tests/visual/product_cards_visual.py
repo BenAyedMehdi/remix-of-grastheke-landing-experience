@@ -85,6 +85,18 @@ MEASURE = """
 }
 """
 
+SETTLE = """
+async () => {
+  await document.fonts.ready;
+  const grid = document.querySelector('[data-testid="product-grid"]');
+  grid.scrollIntoView({ block: 'start' });
+  const imgs = [...grid.querySelectorAll('img')];
+  imgs.forEach((i) => { i.loading = 'eager'; });
+  await Promise.all(imgs.map((i) => (i.complete ? null : i.decode().catch(() => null))));
+  await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+}
+"""
+
 failures = []
 
 
@@ -143,12 +155,16 @@ async def main():
             )
             await page.goto(f"{BASE_URL}/sortiment", wait_until="domcontentloaded")
             await page.wait_for_selector('[data-testid="product-grid"]')
-            await page.wait_for_timeout(600)
+            await page.evaluate(SETTLE)
+            await page.wait_for_load_state("networkidle")
+            await page.evaluate(SETTLE)
+            await page.wait_for_timeout(400)
             for vname, *variant in TEXT_VARIANTS:
                 key = f"{label}--{vname}"
                 print(f"[{key}]")
                 if any(variant):
                     await page.evaluate(APPLY_VARIANT, variant)
+                    await page.evaluate(SETTLE)
                     await page.wait_for_timeout(200)
                 cards = await page.evaluate(MEASURE)
                 check(len(cards) > 0, f"{key}: keine Produktkarten gefunden")
@@ -178,7 +194,10 @@ async def main():
                 if any(variant):
                     await page.reload(wait_until="domcontentloaded")
                     await page.wait_for_selector('[data-testid="product-grid"]')
-                    await page.wait_for_timeout(500)
+                    await page.evaluate(SETTLE)
+                    await page.wait_for_load_state("networkidle")
+                    await page.evaluate(SETTLE)
+                    await page.wait_for_timeout(400)
             await ctx.close()
         await browser.close()
 

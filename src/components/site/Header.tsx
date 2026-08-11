@@ -99,7 +99,7 @@ export function Header() {
               to={item.to}
               className="text-sm text-muted-foreground transition-colors hover:text-foreground"
               activeProps={{ className: "text-foreground font-medium" }}
-              activeOptions={{ exact: true }}
+              activeOptions={{ exact: !item.matchSubpaths }}
             >
               {item.label}
             </Link>

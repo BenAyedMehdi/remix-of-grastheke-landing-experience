@@ -100,7 +100,7 @@ export function Breadcrumbs({ items, className = "" }: BreadcrumbsProps) {
               ) : (
                 <Link
                   to={item.to}
-                  params={item.params}
+                  {...(item.params ? { params: item.params } : {})}
                   className="transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-sm"
                 >
                   {isFirst ? (

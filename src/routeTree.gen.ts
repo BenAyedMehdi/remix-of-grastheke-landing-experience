@@ -13,12 +13,16 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as KontaktRouteImport } from './routes/kontakt'
+import { Route as McpRouteImport } from './routes/mcp'
 import { Route as NewsRouteImport } from './routes/news'
 import { Route as StandorteRouteImport } from './routes/standorte'
 import { Route as UeberUnsRouteImport } from './routes/ueber-uns'
+import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as AuthenticatedChargenVerwaltungRouteImport } from './routes/_authenticated/chargen-verwaltung'
 import { Route as SortimentIndexRouteImport } from './routes/sortiment.index'
 import { Route as SortimentSlugRouteImport } from './routes/sortiment.$slug'
+import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as AuthenticatedChargenIndexRouteImport } from './routes/_authenticated/chargen.index'
 import { Route as AuthenticatedChargenBatchNumberRouteImport } from './routes/_authenticated/chargen.$batchNumber'
 
@@ -41,6 +45,11 @@ const KontaktRoute = KontaktRouteImport.update({
   path: '/kontakt',
   getParentRoute: () => rootRouteImport,
 } as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NewsRoute = NewsRouteImport.update({
   id: '/news',
   path: '/news',
@@ -56,6 +65,18 @@ const UeberUnsRoute = UeberUnsRouteImport.update({
   path: '/ueber-uns',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticatedChargenVerwaltungRoute =
   AuthenticatedChargenVerwaltungRouteImport.update({
     id: '/chargen-verwaltung',
@@ -72,6 +93,12 @@ const SortimentSlugRoute = SortimentSlugRouteImport.update({
   path: '/sortiment/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Char91DotmcpChar93InvokeToolToolRoute =
+  Char91DotmcpChar93InvokeToolToolRouteImport.update({
+    id: '/.mcp/invoke-tool/$tool',
+    path: '/.mcp/invoke-tool/$tool',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticatedChargenIndexRoute =
   AuthenticatedChargenIndexRouteImport.update({
     id: '/chargen/',
@@ -89,12 +116,16 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/kontakt': typeof KontaktRoute
+  '/mcp': typeof McpRoute
   '/news': typeof NewsRoute
   '/standorte': typeof StandorteRoute
   '/ueber-uns': typeof UeberUnsRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/chargen-verwaltung': typeof AuthenticatedChargenVerwaltungRoute
   '/sortiment/$slug': typeof SortimentSlugRoute
   '/sortiment/': typeof SortimentIndexRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/chargen/$batchNumber': typeof AuthenticatedChargenBatchNumberRoute
   '/chargen/': typeof AuthenticatedChargenIndexRoute
 }
@@ -102,12 +133,16 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/kontakt': typeof KontaktRoute
+  '/mcp': typeof McpRoute
   '/news': typeof NewsRoute
   '/standorte': typeof StandorteRoute
   '/ueber-uns': typeof UeberUnsRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/chargen-verwaltung': typeof AuthenticatedChargenVerwaltungRoute
   '/sortiment/$slug': typeof SortimentSlugRoute
   '/sortiment': typeof SortimentIndexRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/chargen/$batchNumber': typeof AuthenticatedChargenBatchNumberRoute
   '/chargen': typeof AuthenticatedChargenIndexRoute
 }
@@ -117,12 +152,16 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/kontakt': typeof KontaktRoute
+  '/mcp': typeof McpRoute
   '/news': typeof NewsRoute
   '/standorte': typeof StandorteRoute
   '/ueber-uns': typeof UeberUnsRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/_authenticated/chargen-verwaltung': typeof AuthenticatedChargenVerwaltungRoute
   '/sortiment/$slug': typeof SortimentSlugRoute
   '/sortiment/': typeof SortimentIndexRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/_authenticated/chargen/$batchNumber': typeof AuthenticatedChargenBatchNumberRoute
   '/_authenticated/chargen/': typeof AuthenticatedChargenIndexRoute
 }
@@ -132,12 +171,16 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/kontakt'
+    | '/mcp'
     | '/news'
     | '/standorte'
     | '/ueber-uns'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/chargen-verwaltung'
     | '/sortiment/$slug'
     | '/sortiment/'
+    | '/.mcp/invoke-tool/$tool'
     | '/chargen/$batchNumber'
     | '/chargen/'
   fileRoutesByTo: FileRoutesByTo
@@ -145,12 +188,16 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/kontakt'
+    | '/mcp'
     | '/news'
     | '/standorte'
     | '/ueber-uns'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/chargen-verwaltung'
     | '/sortiment/$slug'
     | '/sortiment'
+    | '/.mcp/invoke-tool/$tool'
     | '/chargen/$batchNumber'
     | '/chargen'
   id:
@@ -159,12 +206,16 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/kontakt'
+    | '/mcp'
     | '/news'
     | '/standorte'
     | '/ueber-uns'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/_authenticated/chargen-verwaltung'
     | '/sortiment/$slug'
     | '/sortiment/'
+    | '/.mcp/invoke-tool/$tool'
     | '/_authenticated/chargen/$batchNumber'
     | '/_authenticated/chargen/'
   fileRoutesById: FileRoutesById
@@ -174,11 +225,15 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   KontaktRoute: typeof KontaktRoute
+  McpRoute: typeof McpRoute
   NewsRoute: typeof NewsRoute
   StandorteRoute: typeof StandorteRoute
   UeberUnsRoute: typeof UeberUnsRoute
+  Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
+  Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   SortimentSlugRoute: typeof SortimentSlugRoute
   SortimentIndexRoute: typeof SortimentIndexRoute
+  Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -211,6 +266,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KontaktRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/news': {
       id: '/news'
       path: '/news'
@@ -232,6 +294,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UeberUnsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/.mcp/list-tools': {
+      id: '/.mcp/list-tools'
+      path: '/.mcp/list-tools'
+      fullPath: '/.mcp/list-tools'
+      preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/chargen-verwaltung': {
       id: '/_authenticated/chargen-verwaltung'
       path: '/chargen-verwaltung'
@@ -251,6 +327,13 @@ declare module '@tanstack/react-router' {
       path: '/sortiment/$slug'
       fullPath: '/sortiment/$slug'
       preLoaderRoute: typeof SortimentSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/invoke-tool/$tool': {
+      id: '/.mcp/invoke-tool/$tool'
+      path: '/.mcp/invoke-tool/$tool'
+      fullPath: '/.mcp/invoke-tool/$tool'
+      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/chargen/': {
@@ -290,11 +373,16 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   KontaktRoute: KontaktRoute,
+  McpRoute: McpRoute,
   NewsRoute: NewsRoute,
   StandorteRoute: StandorteRoute,
   UeberUnsRoute: UeberUnsRoute,
+  Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
+  Char91DotwellKnownChar93OauthProtectedResourceRoute:
+    Char91DotwellKnownChar93OauthProtectedResourceRoute,
   SortimentSlugRoute: SortimentSlugRoute,
   SortimentIndexRoute: SortimentIndexRoute,
+  Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

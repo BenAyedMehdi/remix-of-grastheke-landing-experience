@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import heroFlower from "@/assets/hero-flower.jpg";
+import { FileText, ScanLine, MapPin } from "lucide-react";
 import { LocationPicker } from "@/components/site/LocationPicker";
 import { DropsSection } from "@/components/site/DropsSection";
 import { ProductGrid } from "@/components/site/ProductGrid";
@@ -11,7 +11,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Medizinisches Cannabis über geprüfte Partnerapotheken in Deutschland. Standort wählen, Sortiment nach Wirkprofil ansehen und im Shop bestellen.",
+          "Therapie beginnt mit Transparenz: Rezept einreichen, Charge nachvollziehen, Apotheke wählen. Medizinisches Cannabis, digital begleitet.",
       },
       { property: "og:title", content: "Grastheke — Medizinisches Cannabis" },
       {
@@ -27,22 +27,25 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <>
-      <section className="relative flex min-h-[92vh] items-end overflow-hidden">
-        <img
-          src={heroFlower}
-          alt="Makroaufnahme einer medizinischen Cannabisblüte (Platzhalterbild)"
-          width={1920}
-          height={1280}
-          className="absolute inset-0 size-full object-cover"
+      <section className="relative flex min-h-[92vh] items-center overflow-hidden border-b border-border">
+        <div className="dot-grid absolute inset-0 opacity-60" aria-hidden="true" />
+        <div
+          className="absolute inset-x-0 top-0 h-[70vh] bg-[radial-gradient(60%_60%_at_50%_0%,color-mix(in_oklab,var(--color-accent)_18%,transparent),transparent_70%)]"
+          aria-hidden="true"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background/10" />
-        <div className="relative mx-auto w-full max-w-[1400px] px-5 pb-16 md:px-10 md:pb-24">
+        <div
+          className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background to-transparent"
+          aria-hidden="true"
+        />
+        <div className="relative mx-auto w-full max-w-[1400px] px-5 pb-20 pt-28 md:px-10 md:pb-28 md:pt-36">
           <p className="text-eyebrow fade-up">Grastheke · Partnerapotheken in Deutschland</p>
           <h1 className="fade-up mt-6 max-w-4xl text-[2.6rem] font-medium leading-[1.02] tracking-tight md:text-7xl">
-            Medizinisches Cannabis.
-            <br />
-            Verlässlich. Regional.
+            Therapie beginnt mit Transparenz
           </h1>
+          <p className="fade-up mt-6 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
+            Rezept einreichen, Charge nachvollziehen, Apotheke wählen. Medizinisches
+            Cannabis, digital begleitet – in einer Oberfläche.
+          </p>
           <div className="fade-up mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
             <Link
               to="/standorte"
@@ -50,10 +53,43 @@ function Index() {
             >
               Standort wählen
             </Link>
-            <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
-              Abgabe ausschließlich auf ärztliche Verordnung, ab 18 Jahren.
-            </p>
+            <Link
+              to="/chargen"
+              className="inline-flex items-center justify-center rounded-full border border-border px-8 py-4 text-sm transition-colors hover:border-accent hover:text-accent"
+            >
+              Charge nachvollziehen
+            </Link>
           </div>
+          <div className="fade-up mt-16 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-3">
+            {[
+              {
+                icon: FileText,
+                title: "Rezept einreichen",
+                text: "E-Rezept oder Papierrezept – direkt an Ihre Partnerapotheke.",
+              },
+              {
+                icon: ScanLine,
+                title: "Charge nachvollziehen",
+                text: "CoA-Werte, Terpenprofil und Restfeuchte je Chargennummer.",
+              },
+              {
+                icon: MapPin,
+                title: "Apotheke wählen",
+                text: "Fünf Standorte mit pharmazeutischer Begleitung vor Ort.",
+              },
+            ].map((item) => (
+              <div key={item.title} className="bg-background p-6 md:p-8">
+                <item.icon className="size-5 text-accent" strokeWidth={1.5} />
+                <h2 className="mt-4 text-base font-medium tracking-tight">{item.title}</h2>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {item.text}
+                </p>
+              </div>
+            ))}
+          </div>
+          <p className="fade-up mt-8 text-xs text-muted-foreground">
+            Abgabe ausschließlich auf ärztliche Verordnung, ab 18 Jahren.
+          </p>
         </div>
       </section>
 

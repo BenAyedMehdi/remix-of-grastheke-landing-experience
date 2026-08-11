@@ -16,7 +16,6 @@ import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as NewsRouteImport } from './routes/news'
 import { Route as StandorteRouteImport } from './routes/standorte'
-import { Route as StudioRouteImport } from './routes/studio'
 import { Route as UeberUnsRouteImport } from './routes/ueber-uns'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
@@ -60,11 +59,6 @@ const NewsRoute = NewsRouteImport.update({
 const StandorteRoute = StandorteRouteImport.update({
   id: '/standorte',
   path: '/standorte',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const StudioRoute = StudioRouteImport.update({
-  id: '/studio',
-  path: '/studio',
   getParentRoute: () => rootRouteImport,
 } as any)
 const UeberUnsRoute = UeberUnsRouteImport.update({
@@ -131,7 +125,6 @@ export interface FileRoutesByFullPath {
   '/mcp': typeof McpRoute
   '/news': typeof NewsRoute
   '/standorte': typeof StandorteRoute
-  '/studio': typeof StudioRoute
   '/ueber-uns': typeof UeberUnsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -150,7 +143,6 @@ export interface FileRoutesByTo {
   '/mcp': typeof McpRoute
   '/news': typeof NewsRoute
   '/standorte': typeof StandorteRoute
-  '/studio': typeof StudioRoute
   '/ueber-uns': typeof UeberUnsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -171,7 +163,6 @@ export interface FileRoutesById {
   '/mcp': typeof McpRoute
   '/news': typeof NewsRoute
   '/standorte': typeof StandorteRoute
-  '/studio': typeof StudioRoute
   '/ueber-uns': typeof UeberUnsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -192,7 +183,6 @@ export interface FileRouteTypes {
     | '/mcp'
     | '/news'
     | '/standorte'
-    | '/studio'
     | '/ueber-uns'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -211,7 +201,6 @@ export interface FileRouteTypes {
     | '/mcp'
     | '/news'
     | '/standorte'
-    | '/studio'
     | '/ueber-uns'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -231,7 +220,6 @@ export interface FileRouteTypes {
     | '/mcp'
     | '/news'
     | '/standorte'
-    | '/studio'
     | '/ueber-uns'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -252,7 +240,6 @@ export interface RootRouteChildren {
   McpRoute: typeof McpRoute
   NewsRoute: typeof NewsRoute
   StandorteRoute: typeof StandorteRoute
-  StudioRoute: typeof StudioRoute
   UeberUnsRoute: typeof UeberUnsRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -311,13 +298,6 @@ declare module '@tanstack/react-router' {
       path: '/standorte'
       fullPath: '/standorte'
       preLoaderRoute: typeof StandorteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/studio': {
-      id: '/studio'
-      path: '/studio'
-      fullPath: '/studio'
-      preLoaderRoute: typeof StudioRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ueber-uns': {
@@ -416,7 +396,6 @@ const rootRouteChildren: RootRouteChildren = {
   McpRoute: McpRoute,
   NewsRoute: NewsRoute,
   StandorteRoute: StandorteRoute,
-  StudioRoute: StudioRoute,
   UeberUnsRoute: UeberUnsRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:

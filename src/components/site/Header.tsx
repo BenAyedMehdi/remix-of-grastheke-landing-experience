@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X, MapPin } from "lucide-react";
 import { useActiveLocation } from "@/context/location-context";
+import logoAsset from "@/assets/grastheke-logo.png.asset.json";
 
 const nav = [
   { to: "/standorte", label: "Standorte" },
@@ -35,9 +36,16 @@ export function Header() {
         <Link
           to="/"
           onClick={() => setOpen(false)}
-          className="text-[15px] font-semibold tracking-[-0.04em] md:text-base"
+          className="flex items-center"
+          aria-label="Grastheke Startseite"
         >
-          Grastheke
+          <img
+            src={logoAsset.url}
+            alt="Grastheke"
+            className="h-7 w-auto md:h-8"
+            width="160"
+            height="40"
+          />
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">

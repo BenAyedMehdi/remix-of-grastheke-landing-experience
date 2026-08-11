@@ -41,7 +41,6 @@ function useAutoBreadcrumbs(): BreadcrumbItem[] {
     const params = match.params as Record<string, string> | undefined;
 
     if (routeId === "/") {
-      items.push({ label, to: "/" });
       continue;
     }
 

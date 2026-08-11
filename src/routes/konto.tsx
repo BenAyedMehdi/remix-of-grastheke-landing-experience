@@ -96,12 +96,14 @@ function KontoPage() {
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Link
               to="/auth"
+              search={{ redirect: "/konto" }}
               className="inline-flex min-h-[2.75rem] flex-1 items-center justify-center rounded-full bg-foreground px-6 text-sm text-background transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               Anmelden
             </Link>
             <Link
               to="/auth"
+              search={{ redirect: "/konto" }}
               className="inline-flex min-h-[2.75rem] flex-1 items-center justify-center rounded-full border border-border px-6 text-sm transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               Konto erstellen

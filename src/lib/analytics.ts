@@ -8,6 +8,7 @@
 
 export type AnalyticsEventName =
   | "cooperation_cta_click"
+  | "location_cta_click"
   | "location_select"
   | "product_view"
   | "gram_enter_click"

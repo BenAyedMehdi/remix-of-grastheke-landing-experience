@@ -44,14 +44,14 @@ export function ProductCard({ product }: { product: Product }) {
         </p>
       </div>
       <div className="mt-auto border-t border-border pt-3">
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
           <span aria-hidden className="tracking-[0.2em] text-foreground">
             {"★".repeat(product.sampleReview.rating)}
             <span className="text-muted-foreground">
               {"★".repeat(5 - product.sampleReview.rating)}
             </span>
           </span>
-          <span className="truncate">
+          <span>
             {product.sampleReview.author} · Charge {product.sampleReview.batch}
           </span>
         </div>

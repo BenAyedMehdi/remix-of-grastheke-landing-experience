@@ -14,7 +14,8 @@ export function AuthRedirectHandler() {
       if (!data.session) return;
       sessionStorage.removeItem("grastheke:after-auth");
       void supabase.rpc("ensure_profile");
-      navigate({ to: target, replace: true });
+      if (target.includes("?")) window.location.replace(target);
+      else navigate({ to: target, replace: true });
     });
   }, [navigate]);
 

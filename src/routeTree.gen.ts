@@ -22,6 +22,7 @@ import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } fr
 import { Route as AuthenticatedChargenVerwaltungRouteImport } from './routes/_authenticated/chargen-verwaltung'
 import { Route as SortimentIndexRouteImport } from './routes/sortiment.index'
 import { Route as SortimentSlugRouteImport } from './routes/sortiment.$slug'
+import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as AuthenticatedChargenIndexRouteImport } from './routes/_authenticated/chargen.index'
 import { Route as AuthenticatedChargenBatchNumberRouteImport } from './routes/_authenticated/chargen.$batchNumber'
@@ -93,6 +94,11 @@ const SortimentSlugRoute = SortimentSlugRouteImport.update({
   path: '/sortiment/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const Char91DotmcpChar93InvokeToolToolRoute =
   Char91DotmcpChar93InvokeToolToolRouteImport.update({
     id: '/.mcp/invoke-tool/$tool',
@@ -125,6 +131,7 @@ export interface FileRoutesByFullPath {
   '/chargen-verwaltung': typeof AuthenticatedChargenVerwaltungRoute
   '/sortiment/$slug': typeof SortimentSlugRoute
   '/sortiment/': typeof SortimentIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/chargen/$batchNumber': typeof AuthenticatedChargenBatchNumberRoute
   '/chargen/': typeof AuthenticatedChargenIndexRoute
@@ -142,6 +149,7 @@ export interface FileRoutesByTo {
   '/chargen-verwaltung': typeof AuthenticatedChargenVerwaltungRoute
   '/sortiment/$slug': typeof SortimentSlugRoute
   '/sortiment': typeof SortimentIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/chargen/$batchNumber': typeof AuthenticatedChargenBatchNumberRoute
   '/chargen': typeof AuthenticatedChargenIndexRoute
@@ -161,6 +169,7 @@ export interface FileRoutesById {
   '/_authenticated/chargen-verwaltung': typeof AuthenticatedChargenVerwaltungRoute
   '/sortiment/$slug': typeof SortimentSlugRoute
   '/sortiment/': typeof SortimentIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/_authenticated/chargen/$batchNumber': typeof AuthenticatedChargenBatchNumberRoute
   '/_authenticated/chargen/': typeof AuthenticatedChargenIndexRoute
@@ -180,6 +189,7 @@ export interface FileRouteTypes {
     | '/chargen-verwaltung'
     | '/sortiment/$slug'
     | '/sortiment/'
+    | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/chargen/$batchNumber'
     | '/chargen/'
@@ -197,6 +207,7 @@ export interface FileRouteTypes {
     | '/chargen-verwaltung'
     | '/sortiment/$slug'
     | '/sortiment'
+    | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/chargen/$batchNumber'
     | '/chargen'
@@ -215,6 +226,7 @@ export interface FileRouteTypes {
     | '/_authenticated/chargen-verwaltung'
     | '/sortiment/$slug'
     | '/sortiment/'
+    | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/_authenticated/chargen/$batchNumber'
     | '/_authenticated/chargen/'
@@ -233,6 +245,7 @@ export interface RootRouteChildren {
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   SortimentSlugRoute: typeof SortimentSlugRoute
   SortimentIndexRoute: typeof SortimentIndexRoute
+  DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 
@@ -329,6 +342,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SortimentSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/.mcp/invoke-tool/$tool': {
       id: '/.mcp/invoke-tool/$tool'
       path: '/.mcp/invoke-tool/$tool'
@@ -382,6 +402,7 @@ const rootRouteChildren: RootRouteChildren = {
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   SortimentSlugRoute: SortimentSlugRoute,
   SortimentIndexRoute: SortimentIndexRoute,
+  DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
 export const routeTree = rootRouteImport

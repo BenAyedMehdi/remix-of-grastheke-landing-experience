@@ -117,20 +117,24 @@ function Index() {
       <section className="mx-auto max-w-[1400px] px-5 py-24 md:px-10 md:py-32">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
-            <p className="text-eyebrow">Standorte</p>
+            <p className="text-eyebrow">Schritt 1 · Sortiment</p>
             <h2 className="mt-4 max-w-xl text-3xl font-medium tracking-tight md:text-5xl">
-              Zuerst den Standort wählen
+              Nach Wirkprofil und Kollektion
             </h2>
           </div>
-          <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
-            Ihre Auswahl wird gespeichert und bestimmt Verfügbarkeit und Lieferzeiten im
-            Sortiment.
-          </p>
+          <Link
+            to="/sortiment"
+            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Gesamtes Sortiment →
+          </Link>
         </div>
         <div className="mt-14">
-          <LocationPicker />
+          <ProductGrid />
         </div>
       </section>
+
+      <LocationStep />
 
       <section className="border-y border-border bg-secondary">
         <div className="mx-auto max-w-[1400px] px-5 py-24 md:px-10 md:py-32">
@@ -151,28 +155,6 @@ function Index() {
           <div className="mt-14">
             <DropsSection />
           </div>
-        </div>
-      </section>
-
-      <PartnerHighlightSection />
-
-      <section className="mx-auto max-w-[1400px] px-5 py-24 md:px-10 md:py-32">
-        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-          <div>
-            <p className="text-eyebrow">Sortiment</p>
-            <h2 className="mt-4 max-w-xl text-3xl font-medium tracking-tight md:text-5xl">
-              Nach Wirkprofil sortiert
-            </h2>
-          </div>
-          <Link
-            to="/sortiment"
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Gesamtes Sortiment →
-          </Link>
-        </div>
-        <div className="mt-14">
-          <ProductGrid />
         </div>
       </section>
 

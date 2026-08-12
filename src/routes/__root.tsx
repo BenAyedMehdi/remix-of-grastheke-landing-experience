@@ -15,6 +15,7 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { AgeGate } from "@/components/site/AgeGate";
 import { LocationProvider } from "@/context/location-context";
+import { SelectionProvider } from "@/context/selection-context";
 import {
   HeaderScrollProvider,
   useHeaderScroll,
@@ -149,6 +150,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <LocationProvider>
+        <SelectionProvider>
         <HeaderScrollProvider>
           <AgeGate />
           <AuthRedirectHandler />
@@ -173,6 +175,7 @@ function RootComponent() {
           <BottomTabBar />
           <Toaster />
         </HeaderScrollProvider>
+        </SelectionProvider>
       </LocationProvider>
     </QueryClientProvider>
   );

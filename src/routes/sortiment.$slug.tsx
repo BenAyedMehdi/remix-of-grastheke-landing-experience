@@ -1,7 +1,10 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
+import { useEffect } from "react";
 import { products, SHOP_BASE_URL, type Product } from "@/lib/data";
 import { useActiveLocation } from "@/context/location-context";
+import { useProductSelection } from "@/context/selection-context";
+import { LocationStep } from "@/components/site/LocationStep";
 import { ProductReviews } from "@/components/site/ProductReviews";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { openExternalUrl } from "@/lib/native";
@@ -36,6 +39,11 @@ export const Route = createFileRoute("/sortiment/$slug")({
 function ProductPage() {
   const { product } = Route.useLoaderData();
   const { activeLocation } = useActiveLocation();
+  const { selectProduct } = useProductSelection();
+
+  useEffect(() => {
+    selectProduct(product.slug);
+  }, [product.slug, selectProduct]);
 
   return (
     <section className="slide-in-page mx-auto max-w-[1400px] px-5 pb-24 pt-28 md:px-10 md:pb-32 md:pt-36">

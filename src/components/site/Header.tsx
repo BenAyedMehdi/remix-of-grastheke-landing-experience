@@ -2,6 +2,7 @@ import { Link, useLocation } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Menu, X, MapPin } from "lucide-react";
 import { useActiveLocation } from "@/context/location-context";
+import { useProductSelection } from "@/context/selection-context";
 import { useHeaderScroll } from "@/context/header-scroll-context";
 import logoAsset from "@/assets/grastheke-logo.png.asset.json";
 
@@ -21,6 +22,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const { activeLocation } = useActiveLocation();
+  const { selectedProduct } = useProductSelection();
   const { isScrolled } = useHeaderScroll();
   const location = useLocation();
   const activeRef = useRef<HTMLAnchorElement | null>(null);
@@ -142,6 +144,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
+          {(activeLocation || selectedProduct) && (
           <Link
             to="/standorte"
             className="hidden items-center gap-2 rounded-full border border-border px-4 py-2 text-xs transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:inline-flex"
@@ -154,6 +157,7 @@ export function Header() {
             <MapPin className="size-3.5" strokeWidth={1.5} aria-hidden="true" />
             {activeLocation ? activeLocation.city : "Standort wählen"}
           </Link>
+          )}
           <button
             type="button"
             ref={toggleRef}

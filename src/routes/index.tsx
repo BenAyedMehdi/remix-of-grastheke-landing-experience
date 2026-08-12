@@ -1,11 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { FileText, ScanLine, MapPin, ArrowRight, Building2 } from "lucide-react";
-import { LocationPicker } from "@/components/site/LocationPicker";
+import { FlaskConical, ScanLine, Sprout, ArrowRight, Building2 } from "lucide-react";
 import { DropsSection } from "@/components/site/DropsSection";
 import { ProductGrid } from "@/components/site/ProductGrid";
-import { PartnerHighlightSection } from "@/components/site/PartnerHighlightSection";
+import { LocationStep } from "@/components/site/LocationStep";
 import { GramMark } from "@/components/site/GramMark";
-import { ActiveLocationCard } from "@/components/app/ActiveLocationCard";
 import { trackEvent } from "@/lib/analytics";
 
 export const Route = createFileRoute("/")({
@@ -54,26 +52,27 @@ function Index() {
           aria-hidden="true"
         />
         <div className="relative mx-auto w-full max-w-[1400px] px-5 pb-20 pt-28 md:px-10 md:pb-28 md:pt-36">
-          <p className="text-eyebrow fade-up">Grastheke · Partnerapotheken in Deutschland</p>
+          <p className="text-eyebrow fade-up">Grastheke · Geprüfte Blütenqualität</p>
           <h1 className="fade-up mt-6 max-w-4xl text-[2.6rem] font-medium leading-[1.02] tracking-tight md:text-7xl">
-            Therapie beginnt mit Transparenz
+            Qualität, die sich prüfen lässt
           </h1>
           <p className="fade-up mt-6 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            Rezept einreichen, Charge nachvollziehen, Apotheke wählen. Medizinisches
-            Cannabis, digital begleitet – in einer Oberfläche.
+            HPLC- und FTIR-geprüfte Blüten, dokumentierte Herkunft, vollständige
+            Chargentransparenz. Zuerst das Wirkprofil – die Apotheke folgt im zweiten
+            Schritt.
           </p>
           <div className="fade-up mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
             <Link
-              to="/standorte"
+              to="/sortiment"
               onClick={() =>
-                trackEvent("location_cta_click", {
+                trackEvent("assortment_cta_click", {
                   location: "homepage_hero",
-                  label: "Standort wählen",
+                  label: "Sortiment ansehen",
                 })
               }
               className="inline-flex items-center justify-center rounded-full bg-foreground px-8 py-4 text-sm text-background transition-opacity hover:opacity-85"
             >
-              Standort wählen
+              Sortiment ansehen
             </Link>
             <Link
               to="/chargen"
@@ -82,15 +81,12 @@ function Index() {
               Charge nachvollziehen
             </Link>
           </div>
-          <div className="fade-up mt-10 max-w-xl">
-            <ActiveLocationCard />
-          </div>
           <div className="fade-up mt-16 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-3">
             {[
               {
-                icon: FileText,
-                title: "Rezept einreichen",
-                text: "E-Rezept oder Papierrezept – direkt an Ihre Partnerapotheke.",
+                icon: FlaskConical,
+                title: "HPLC- & FTIR-geprüft",
+                text: "Cannabinoidgehalt und Restfeuchte analytisch bestätigt, je Charge.",
               },
               {
                 icon: ScanLine,
@@ -98,9 +94,9 @@ function Index() {
                 text: "CoA-Werte, Terpenprofil und Restfeuchte je Chargennummer.",
               },
               {
-                icon: MapPin,
-                title: "Apotheke wählen",
-                text: "Fünf Standorte mit pharmazeutischer Begleitung vor Ort.",
+                icon: Sprout,
+                title: "Dokumentierte Herkunft",
+                text: "EU-GMP-Produktion, Genetik und Anbaubetrieb je Sorte belegt.",
               },
             ].map((item) => (
               <div key={item.title} className="bg-background p-6 md:p-8">

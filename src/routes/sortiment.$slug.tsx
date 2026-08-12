@@ -128,6 +128,8 @@ function ProductPage() {
         </div>
       </div>
 
+      <LocationStep variant="inline" />
+
       <ProductReviews productSlug={product.slug} productName={product.name} />
     </section>
   );

@@ -1,4 +1,0 @@
-CREATE POLICY "batch files read" ON storage.objects FOR SELECT TO authenticated USING (bucket_id IN ('batch-photos','batch-coa'));
-CREATE POLICY "batch files insert" ON storage.objects FOR INSERT TO authenticated WITH CHECK (bucket_id IN ('batch-photos','batch-coa') AND public.is_staff(auth.uid()));
-CREATE POLICY "batch files update" ON storage.objects FOR UPDATE TO authenticated USING (bucket_id IN ('batch-photos','batch-coa') AND public.is_staff(auth.uid())) WITH CHECK (bucket_id IN ('batch-photos','batch-coa') AND public.is_staff(auth.uid()));
-CREATE POLICY "batch files delete" ON storage.objects FOR DELETE TO authenticated USING (bucket_id IN ('batch-photos','batch-coa') AND public.is_staff(auth.uid()));
